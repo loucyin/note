@@ -24,6 +24,15 @@ git config user.email "email@email.com"
     git log --pretty=oneline
     git reflog
     git diff
+    git reset
+    git checkout
     ```
 - 创建远程仓库
     1. 创建SSH key
+    ```
+    ssh-keygen -t rsa -C "youremail@example.com"
+    ```
+    - 创建远程版本库(SSH)
+    版本库-> settings->Deploy keys->Add deploy key  
+    填写title，将生成的.pub中的内容，复制到key里面。勾选Allow write access，最后Add key。
+    - 
