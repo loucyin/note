@@ -85,4 +85,10 @@ git config user.email "email@email.com"
     git merge master
     git push origin branch
   ```
-  远程库就多了一个branch 分支。
+  远程库就多了一个branch 分支。  
+  
+  git 删除远程分支,该分支不能为default branch：
+  ```
+  git push origin --delete branch
+  ```
+  参考链接：[Git查看、删除、重命名远程分支和tag](http://zengrong.net/post/1746.htm)
