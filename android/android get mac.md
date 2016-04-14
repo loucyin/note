@@ -2,6 +2,8 @@
 ```
 "/sys/class/net/" + networkInterfaceName + "/address";
 ```
+android 系统mac地址存放位置：
+/data/nvram/APCFG/WIFI
 # 代码
 ```java
 public static String getWifiMacAddress() {
@@ -32,4 +34,5 @@ public static String getWifiMacAddress() {
 }
 ```
 # 参考链接：  
-[How to get the missing Wifi MAC Address on Android M Preview?](http://stackoverflow.com/questions/31329733/how-to-get-the-missing-wifi-mac-address-on-android-m-preview)
+[How to get the missing Wifi MAC Address on Android M Preview?](http://stackoverflow.com/questions/31329733/how-to-get-the-missing-wifi-mac-address-on-android-m-preview)  
+[如何修改安卓手机mac地址](http://jingyan.baidu.com/article/e8cdb32b4095e537042bad5d.html)
