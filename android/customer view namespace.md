@@ -125,7 +125,77 @@ public class CircleView extends View
 ```
 public CoordinatorLayout.Behavior (Context context, AttributeSet attrs)
 ```
-在CoordinatorLayout.Behavior的构造函数中，有AttributeSet类型的参数，在自定义Behavior的时候，可以使用自定义的attr，具体使用可以参考下面的链接。  
+
+在CoordinatorLayout.Behavior的构造函数中，有AttributeSet类型的参数，在自定义Behavior的时候，可以使用自定义的attr，具体使用可以参考下面的链接。
+
+# 自定义View注意事项  
+
+> 主要是要处理wrap_content 和padding。否则xml 那边设置这2个属性就根本没用了。还有不要在view中使用handler 因为人家已经提供了post方法。如果是继承自viewGroup,那在onMeasure和onLayout里面 也要考虑
+padding和layout的影响。也就是说specSize 要算一下 。最后就是如果view的动画或者线程需要停止，可以考虑在onDetachedFromWindow里面来做。   
+
+别人家的代码  
+```java
+public class CircleView extends View {
+
+    private int mColor = Color.RED;
+    private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+    private void init() {
+        mPaint.setColor(mColor);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int widthSpecMode = MeasureSpec.getMode(widthMeasureSpec);
+        int widthSpecSize = MeasureSpec.getSize(widthMeasureSpec);
+        int heightSpecMode = MeasureSpec.getMode(heightMeasureSpec);
+        int heightSpecSize = MeasureSpec.getSize(heightMeasureSpec);
+
+        //处理为wrap_content时的情况
+        if (widthSpecMode == MeasureSpec.AT_MOST && heightSpecMode == MeasureSpec.AT_MOST) {
+            setMeasuredDimension(200, 200);
+        } else if (widthSpecMode == MeasureSpec.AT_MOST) {
+            setMeasuredDimension(200, heightSpecSize);
+        } else if (heightSpecMode == MeasureSpec.AT_MOST) {
+            setMeasuredDimension(widthSpecSize, 200);
+        }
+
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        //处理padding的情况
+        final int paddingLeft = getPaddingLeft();
+        final int paddingRight = getPaddingRight();
+        final int paddingTop = getPaddingTop();
+        final int paddingBottom = getPaddingBottom();
+
+
+        int width = getWidth() - paddingLeft - paddingRight;
+        int height = getHeight() - paddingTop - paddingBottom;
+        int radius = Math.min(width, height) / 2;
+        canvas.drawCircle(paddingLeft + width / 2, paddingTop + height / 2, radius, mPaint);
+    }
+
+    public CircleView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init();
+    }
+
+    public CircleView(Context context) {
+        super(context);
+        init();
+
+    }
+
+    public CircleView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init();
+    }
+}
+```
 
 参考链接：  
 [ Android中attrs.xml文件的使用详解](http://blog.csdn.net/jiangwei0910410003/article/details/17006087)  
@@ -135,3 +205,4 @@ public CoordinatorLayout.Behavior (Context context, AttributeSet attrs)
 [Style在Android中的继承关系](http://www.tuicool.com/articles/bq2eUvV)  
 [2.2　值文件](http://book.2cto.com/201301/14161.html)  
 [android XML tag called eat-comment, what is its use?](http://stackoverflow.com/questions/21837986/android-xml-tag-called-eat-comment-what-is-its-use/21893035#21893035)  
+[Android View绘制13问13答](http://www.cnblogs.com/punkisnotdead/p/5181821.html)
