@@ -1,3 +1,12 @@
+# android attrs.xml  
+android attrs.xml 可以在SDK目录下找到：SDK\platforms\android-23\data\res\values\attrs.xml  
+![attrs.xml 截图](android_attrs.png)  
+
+标签<eat-comment>没弄明白什么意思。下面是stackoverflow上找到的解释。
+```
+<eat-comment/> is used to suppress comment lines from the documentation output.  
+```
+
 # 自定义namespace
 1. 创建attrs.xml  
 在value文件夹下新建attrs.xml
@@ -24,7 +33,7 @@ format可以指定值为多种类型，比如说circleColor可以是color，也�
 public CircleView(Context context, AttributeSet attrs, int defStyleAttr)
     {
         super(context, attrs, defStyleAttr);
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CircleView);
         for (int i = 0; i < typedArray.getIndexCount(); i++) {
             int attr = typedArray.getIndex(i);
             switch (attr)
@@ -54,4 +63,7 @@ public CircleView(Context context, AttributeSet attrs, int defStyleAttr)
 [ Android中attrs.xml文件的使用详解](http://blog.csdn.net/jiangwei0910410003/article/details/17006087)  
 [Android开发学习之TypedArray类](http://blog.csdn.net/richerg85/article/details/11749421)  
 [TypedArray Reference](http://developer.android.com/reference/android/content/res/TypedArray.html)  
-[关于CoordinatorLayout与Behavior的一点分析](http://www.jianshu.com/p/a506ee4afecb)
+[关于CoordinatorLayout与Behavior的一点分析](http://www.jianshu.com/p/a506ee4afecb)  
+[Style在Android中的继承关系](http://www.tuicool.com/articles/bq2eUvV)  
+[2.2　值文件](http://book.2cto.com/201301/14161.html)  
+[android XML tag called eat-comment, what is its use?](http://stackoverflow.com/questions/21837986/android-xml-tag-called-eat-comment-what-is-its-use/21893035#21893035)  

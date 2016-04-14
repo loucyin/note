@@ -1,3 +1,4 @@
+# android FileChooser  
 通过inten.setType();设置MIME类型，\*代表通配符，\*/\*，表示所有类型。  
 通过Intent.createChooser()来创建启动FileChooser Activity的intent。  
 再利用startActivityForResult 来启动filechooser，重写onActivityResult,处理选择结果。  
