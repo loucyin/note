@@ -2,10 +2,10 @@
 android attrs.xml 可以在SDK目录下找到：SDK\platforms\android-23\data\res\values\attrs.xml  
 ![attrs.xml 截图](android_attrs.png)  
 
-标签<eat-comment>没弄明白什么意思。下面是stackoverflow上找到的解释。
-```
-<eat-comment/> is used to suppress comment lines from the documentation output.  
-```
+标签`<eat-comment>`没弄明白什么意思。下面是stackoverflow上找到的解释。
+
+> `<eat-comment/>` is used to suppress comment lines from the documentation output.  
+
 
 # 自定义namespace
 1. 创建attrs.xml  
@@ -42,7 +42,7 @@ public CircleView(Context context, AttributeSet attrs, int defStyleAttr)
                     mColor = typedArray.getColor(attr,0xffbbbbbb);
                     break;
                 case R.styleable.CircleView_radius:
-                    mRadius = typedArray.getInt(attr,10);
+                    mRadius = typedArray.getFloat(attr,10.f);
                     break;
             }
         }
