@@ -30,6 +30,20 @@ CREATE TABLE articles
 ```
 alter table articles add fulltext index ngram_idx(title) with parser ngram;
 ```
+- 全文索引使用
+```
+select * from articles where match(title) against("测试用户0写的第0" in natural language mode);
+select * from articles where match(title) against("测试用户0写的第0" in boolean mode);
+```
+
+- 查看全文索引有哪些词
+>我们可以通过查询INFORMATION_SCHEMA.INNODB_FT_INDEX_CACHE和INFORMATION_SCHEMA.INNODB_FT_TABLE_TABLE来查询哪些词在全文索引里面。  
+
+  使用方法：  
+```
+SET GLOBAL innodb_ft_aux_table="test/articles";
+SELECT * FROM INFORMATION_SCHEMA.INNODB_FT_INDEX_CACHE;
+```
 - 删除全文索引  
 ```
 alter table articles drop index ngram_idx;
@@ -37,3 +51,28 @@ alter table articles drop index ngram_idx;
 
   参考链接：  
 [InnoDB全文索引：N-gram Parser](http://mysqlserverteam.com/innodb%E5%85%A8%E6%96%87%E7%B4%A2%E5%BC%95%EF%BC%9An-gram-parser/?spm=5176.blog15673.yqblogcon1.4.Bvz18O)  
+# 搜索的实现
+- 需求  
+  1. 对三个表进行搜索；  
+  2. 将搜索结果合并；  
+  3. 按时间排序；
+  4. 需要知道数据来自那张表。
+- 实现  
+搜索通过select语句完成，合并通过union完成，排序通过order by 语句完成。
+```
+select id,title,publishTime as time from j_bbs.essay where publishTime is not null and match(title,content) against("用户")
+union all
+select id,title,publishTime as time from j_bbs.vote where publishTime is not null and match(title,content) against("用户")
+union all
+select id,content as title,createTime as time from j_bbs.discuss where createTime is not null and match(content) against("用户")
+order by time desc;
+```
+利用变量实现标记数据
+```
+select id,title,@type:= 0 as type,publishTime as time from j_bbs.essay where publishTime is not null and match(title,content) against("用户")
+union all
+select id,title,@type:= 1 as type,publishTime as time from j_bbs.vote where publishTime is not null and match(title,content) against("用户")
+union all
+select id,content as title,@type:= 2 as type,createTime as time from j_bbs.discuss where createTime is not null and match(content) against("用户")
+order by time desc;
+```
