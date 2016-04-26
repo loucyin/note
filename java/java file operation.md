@@ -168,5 +168,10 @@ public static void main(String[] args)
 		return new int[] { width, height };
 	}
 ```
+图越大，结果差异越大：
+```
+ImageReader:[81, 1, 0, 3, 20]
+ImageIO    :[574, 323, 420, 463, 433]
+```
 ## Thumbinal
 使用第三方库：[coobird/thumbnailator](https://github.com/coobird/thumbnailator)
