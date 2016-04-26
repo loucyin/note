@@ -1,5 +1,5 @@
 ## 文件的基本操作
-```
+```java
 //创建文件
 File file = new File(fileName);
 
@@ -24,7 +24,7 @@ String[] fileList = dir.list();
 ```
 ## 文件的读写
 - 通过FileWriter写入
-```
+```java
 public static boolean writeStringToFile(String content, String fileName)
 	{
 		File file = new File(fileName);
@@ -59,7 +59,7 @@ public static boolean writeStringToFile(String content, String fileName)
 	}
 ```
 - 通过stream读写
-```
+```java
     InputStream inputStream = null;
 		OutputStream outputStream = null;
 		int len = 0;
@@ -91,10 +91,47 @@ public static boolean writeStringToFile(String content, String fileName)
 			}
 		}
 ```
-## 获取图片的大小
-```
-//支持 jpg png gif bmp 格式，不支持 ico 格式
-public static int[] getImageSize(File image,String formatName)
+## 获取图片的大小  
+两种方式：一种是通过 ImageReader ，一种是通过 ImageIO ；ImageReader 根据文件名读取文件的信息，比较快速，但是当文件后缀与文件的实际类型不符时，会报异常，不支持 ICO 格式图片。ImageIO 是将文件读入，然后获取大小，比较耗时。
+```java
+public static void main(String[] args)
+	{
+		List<Long> imageReader = new ArrayList<>();
+		List<Long> imageIo = new ArrayList<>();
+		for (int i = 115; i < 120; i++)
+		{
+			String path = "E:\\image\\"+i+".jpg";
+			// 新建文件
+			File image = new File(path);
+			// 计时开始
+			long start = new Date().getTime();
+			// 获取文件后缀名
+			int index = path.lastIndexOf('.');
+			String formatName = "jpg";
+			if (index > 0)
+			{
+				formatName = path.substring(index + 1);
+			}
+			getImageSize(image, formatName);
+
+			//计时结束，保存
+			long end = new Date().getTime();
+			imageReader.add(end - start);
+
+			//计时开始
+			start = new Date().getTime();
+
+			getImageSize(image);
+
+			//计时结束保存
+			end = new Date().getTime();
+			imageIo.add(end - start);
+		}
+		System.out.println("ImageReader:"+imageReader);
+		System.out.println("ImageIO    :"+imageIo);
+	}
+
+	public static int[] getImageSize(File image, String formatName)
 	{
 		try
 		{
@@ -108,7 +145,27 @@ public static int[] getImageSize(File image,String formatName)
 		{
 			e.printStackTrace();
 		}
-		return null;
+		return new int[] { 1200, 200 };
+	}
+
+	public static int[] getImageSize(File image)
+	{
+		InputStream is = null;
+		BufferedImage src = null;
+		int height = 0;
+		int width = 0;
+		try
+		{
+			is = new FileInputStream(image);
+			src = javax.imageio.ImageIO.read(is);
+			width = src.getWidth();
+			height = src.getHeight();
+			is.close();
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return new int[] { width, height };
 	}
 ```
 ## Thumbinal
