@@ -1,6 +1,6 @@
 # android attrs.xml  
 android attrs.xml 可以在SDK目录下找到：SDK\platforms\android-23\data\res\values\attrs.xml  
-![attrs.xml 截图](android_attrs.png)  
+![attrs.xml 截图](image/android_attrs.png)  
 
 标签`<eat-comment>`没弄明白什么意思。下面是stackoverflow上找到的解释。
 
