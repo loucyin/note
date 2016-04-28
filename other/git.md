@@ -1,5 +1,5 @@
 # git使用笔记　　
-- 创建办本库
+## 创建办本库
     1.  配置全局用户信息
 ```
 git config --global user.name "userName"
@@ -27,7 +27,7 @@ git config user.email "email@email.com"
     git reset
     git checkout
     ```
-- 创建远程仓库
+## 创建远程仓库
     1. 创建SSH key
     ```
     ssh-keygen -t rsa -C "youremail@example.com"
@@ -86,9 +86,23 @@ git config user.email "email@email.com"
     git push origin branch
   ```
   远程库就多了一个branch 分支。  
-  
+
   git 删除远程分支,该分支不能为default branch：
   ```
   git push origin --delete branch
   ```
   参考链接：[Git查看、删除、重命名远程分支和tag](http://zengrong.net/post/1746.htm)
+## clone OR pull , 还是 fetch + merge 吧
+知乎关于 clone pull 的区别：
+> git clone是把整个git项目拷贝下来，包括里面的日志信息，git项目里的分支，你也可以直接切换、使用里面的分支等等
+git pull相当于git fetch和git merge。其意思是先从远程下载git项目里的文件，然后将文件与本地的分支进行merge。  
+
+  用 pull 还是 fetch + merge ?  
+> 为什么不用 git 的 pull？  
+虽然 git pull 大部分时候是好的，特别是如果你用CVS类型的方式使用Git时，它可能正适合你。然而，如果你想用一个更地道的方式（建立很多主题分支，当你需要时随时改写本地历史，等等）使用Git，那么习惯把 git fetch 和 git merge 分开做会有很大帮助。
+
+  参考链接：  
+[知乎 clone 和 pull 的区别](https://www.zhihu.com/question/39595933)  
+[Git 少用 Pull 多用 Fetch 和 Merge](http://www.cnblogs.com/flying_bat/p/3408634.html)  
+> ***我最擅长从零开始创造世界，所以从来不怕失败，它最多也就让我一无所有。***  
+—— Git少用Pull多用Fetch和Merge
