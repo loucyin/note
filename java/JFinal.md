@@ -1,4 +1,10 @@
 ## 配置一个 JFinal 项目
+- 创建一个 Web Dynamic Project
+Default Output Folder 与 Content directory 要相对应。
+> 此处的 Default out folder 必须要与 WebRoot/WEB-INF/classes 目录完全一致才可
+以使用 JFinal 集成的 Jetty 来启动项目。
+
+- 配置
 
 ## Jfinal Post 限制上传大小为 10M
 解决方法：
