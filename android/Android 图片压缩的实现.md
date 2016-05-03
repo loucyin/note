@@ -17,7 +17,6 @@
   2. 利用 Bitmap.createScaledBitmap() 方法，获取到需要的尺寸。
   3. 利用 Bitmap.compress() 方法，进行质量压缩。
   ```java
-<<<<<<< HEAD
   /**
    * 默认目标图的宽度为 800 ，当 reqWidth reqHeight 都为 0 时，使用默认宽度；
    * 有一个为 0 时，使用不为 0 的计算缩放比例，和采样系数；
@@ -32,9 +31,6 @@
    * @return false 压缩失败，true 压缩成功
    */
   public static boolean compressImage(String srcPath, String dstPath, int reqWidth, int reqHeight, int quality)
-=======
-  public static void compressImage(String srcPath, String dstPath, int reqWidth, int reqHeight)
->>>>>>> d837625bf53a982a3134c0429bd006489cc464c3
   {
       float defaultWidth = 800.f;
 
@@ -47,18 +43,13 @@
 
       if (width == 0 || height == 0)
       {
-<<<<<<< HEAD
           return false;
-=======
-          return;
->>>>>>> d837625bf53a982a3134c0429bd006489cc464c3
       }
 
       // 计算采样比例
       int sample = 1;
       if (reqWidth != 0 && reqHeight != 0)
       {
-<<<<<<< HEAD
           sample = Math.min(width / reqWidth, height / reqHeight);
       } else if (reqWidth != 0)
       {
@@ -75,29 +66,11 @@
       options.inJustDecodeBounds = false;
       options.inSampleSize = sample;
       Bitmap bitmap = BitmapFactory.decodeFile(srcPath, options);
-=======
-          sample = Math.min(width/reqWidth,height/reqHeight);
-      } else if (reqWidth != 0)
-      {
-          sample = width/reqWidth;
-      }else if(reqHeight != 0)
-      {
-          sample = height/reqHeight;
-      }else
-      {
-          sample = width/800;
-      }
-
-      // 加载 bitmap
-      options.inSampleSize = sample;
-      Bitmap bitmap = BitmapFactory.decodeFile(srcPath,options);
->>>>>>> d837625bf53a982a3134c0429bd006489cc464c3
 
       width = options.outWidth;
       height = options.outHeight;
 
       // 计算缩放比例
-<<<<<<< HEAD
       float scale;
       if (reqWidth != 0 && reqHeight != 0)
       {
@@ -119,60 +92,26 @@
           Matrix matrix = new Matrix();
           matrix.postScale(scale, scale);
           bitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, false);
-=======
-      float scale ;
-      if (reqWidth != 0 && reqHeight != 0)
-      {
-          scale = Math.min((float)reqWidth/width,(float)reqHeight/height);
-      } else if (reqWidth != 0)
-      {
-          scale = (float)reqWidth/width;
-      }else if(reqHeight != 0)
-      {
-          scale = (float)reqHeight/height;
-      }else
-      {
-          scale = defaultWidth/width;
-      }
-
-      // 图片缩放
-      if(scale < 1.0f)
-      {
-          Matrix matrix = new Matrix();
-          matrix.postScale(scale,scale);
-          bitmap = Bitmap.createBitmap(bitmap,0,0,width,height,matrix,false);
->>>>>>> d837625bf53a982a3134c0429bd006489cc464c3
       }
 
       // 保存到目的地址
       ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-<<<<<<< HEAD
 
       quality = quality < 0 ? 0 : quality;
       quality = quality > 100 ? 100 : quality;
       bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
       try
       {
-=======
-      bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-      try {
->>>>>>> d837625bf53a982a3134c0429bd006489cc464c3
           FileOutputStream fos = new FileOutputStream(new File(dstPath));
           fos.write(outputStream.toByteArray());
           fos.flush();
           fos.close();
-<<<<<<< HEAD
       } catch (IOException e)
       {
           e.printStackTrace();
           return false;
       }
       return true;
-=======
-      } catch (Exception e) {
-          e.printStackTrace();
-      }
->>>>>>> d837625bf53a982a3134c0429bd006489cc464c3
   }
   ```
 
