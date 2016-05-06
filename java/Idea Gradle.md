@@ -12,6 +12,7 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.3'
 }
 ```
+Gradle -> Refresh all Gradle projects  
 项目文件夹 -> 右键 -> Open Module Settings -> Dependencies ，点击 + -> library，选中Gradle:io.reactivex:rxjava:1.1.3，Add Selected。
 
 ## 添加目录

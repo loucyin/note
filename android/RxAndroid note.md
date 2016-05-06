@@ -42,9 +42,10 @@ Observable.from(folders)
 ## 换个方法
 
 ## 参考链接
-- [RxJava WiKi](https://github.com/ReactiveX/RxJava/wiki)
+- [Awesome-RxJava](https://github.com/lzyzsd/Awesome-RxJava)  
+- [RxJava WiKi](https://github.com/ReactiveX/RxJava/wiki)  
 - [给 Android 开发者的 RxJava 详解](http://gank.io/post/560e15be2dca930e00da1083)  
 - [RxJava 与 Retrofit 结合的最佳实践](http://gank.io/post/56e80c2c677659311bed9841)  
-- [【译文】RxAndroid and Kotlin (Part1)](http://www.jianshu.com/p/5a730187c8ff)
-- [ 深入浅出RxJava（一：基础篇](http://blog.csdn.net/lzyzsd/article/details/41833541)
-- [彻底了解RxJava（一）基础知识](https://asce1885.gitbooks.io/android-rd-senior-advanced/content/che_di_le_jie_rxjava_ff08_yi_ff09_ji_chu_zhi_shi.html)
+- [【译文】RxAndroid and Kotlin (Part1)](http://www.jianshu.com/p/5a730187c8ff)  
+- [ 深入浅出RxJava（一：基础篇](http://blog.csdn.net/lzyzsd/article/details/41833541)  
+- [彻底了解RxJava（一）基础知识](https://asce1885.gitbooks.io/android-rd-senior-advanced/content/che_di_le_jie_rxjava_ff08_yi_ff09_ji_chu_zhi_shi.html)  
