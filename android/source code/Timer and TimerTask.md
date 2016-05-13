@@ -256,3 +256,8 @@ public void run() {
 ```
 
 上面是在 Android Studio 中找到的源码，和 Eclipse 中的源码并不相同，不过实现思路一样。
+
+---
+**TimerTask 中不能执行耗时的操作，否则会影响定时的准确性。**
+
+---
