@@ -43,7 +43,3 @@ sudo fc-cache -fv
 修改为：  
 @define-color dark_bg_color rgba(60,59,55,0.4);
 其中0.4是透明度。
-## 禁用、启用触摸板
-把设置里面的触摸板设置给弄没了。  
-禁用：sudo rmmod psmouse   
-启用：sudo modprobe psmouse   
