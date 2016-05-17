@@ -36,8 +36,19 @@ Java 的序列化机制是通过在运行时判断类的 serialVersionUID 来验
 1）在某些场合，希望类的不同版本对序列化兼容，因此需要确保类的不同版本具有相同的 serialVersionUID；在某些场合，不希望类的不同版本对序列化兼容，因此需要确保类的不同版本具有不同的 serialVersionUID。   
 2）当你序列化了一个类实例后，希望更改一个字段或添加一个字段，不设置 serialVersionUID，所做的任何更改都将导致无法反序化旧有实例，并在反序列化时抛出一个异常。如果你添加了 serialVersionUID，在反序列旧有实例时，新添加或更改的字段值将设为初始化值（对象为 null，基本类型为相应的初始默认值），字段被删除将不设置。
 
+## Gson 的使用
+### @Expose
+- 在需要导出的字段上添加 @Expose 注解；
+- 使用 GsonBuilder 生成 Gson 实例；
+```java
+Gson gson = new GsonBuilder()
+        .excludeFieldsWithoutExposeAnnotation()
+        .create();
+gson.toJson(category);
+```
 ## 参考链接
 - [Java 对象的序列化和反序列化](http://www.cnblogs.com/xdp-gacl/p/3777987.html)
 - [Java Doc - Interface Serializable](https://docs.oracle.com/javase/7/docs/api/java/io/Serializable.html)
 - [serialVersionUID 的作用](http://www.cnblogs.com/guanghuiqq/archive/2012/07/18/2597036.html)
-- [ serialVersionUID 作用](http://blog.csdn.net/dancen/article/details/7236575)
+- [serialVersionUID 作用](http://blog.csdn.net/dancen/article/details/7236575)
+- [gson 字段过滤](http://www.jianshu.com/p/0e40a52c0063)
