@@ -1,20 +1,20 @@
 # git使用笔记　　
 ## 创建办本库
-    1.  配置全局用户信息
+1.  配置全局用户信息
 ```
 git config --global user.name "userName"
 git config --global user.email "email@email.com"
 ```
-    - 配置当前版本仓库的用户信息
+- 配置当前版本仓库的用户信息
 ```
 git config user.name "userName"
 git config user.email "email@email.com"
 ```
-    - 创建版本库  
+- 创建版本库  
     ```
     git init
     ```
-    - 简单的几个命令
+- 简单的几个命令
     ```
     git add readme.md
     git commit -m "添加readme"
@@ -27,15 +27,16 @@ git config user.email "email@email.com"
     git reset
     git checkout
     ```
+
 ## 创建远程仓库
-    1. 创建SSH key
+1. 创建SSH key
     ```
     ssh-keygen -t rsa -C "youremail@example.com"
     ```
-    - 创建远程版本库(SSH)
+- 创建远程版本库(SSH)
     版本库-> settings->Deploy keys->Add deploy key  
     填写title，将生成的.pub中的内容，复制到key里面。勾选Allow write access，最后Add key。
-    -  本地添加远程版本库  
+-  本地添加远程版本库  
     通过SSH的方式添加：
     ```
     git remote add origin git@github.com:loucyin/note.git
@@ -44,7 +45,7 @@ git config user.email "email@email.com"
     ```
     git remote add origin https://github.com/loucyin/note.git
     ```
-    - 推送至github  
+- 推送至github  
     ```
     git push origin master
     ```
@@ -101,8 +102,14 @@ git pull相当于git fetch和git merge。其意思是先从远程下载git项目
 > 为什么不用 git 的 pull？  
 虽然 git pull 大部分时候是好的，特别是如果你用CVS类型的方式使用Git时，它可能正适合你。然而，如果你想用一个更地道的方式（建立很多主题分支，当你需要时随时改写本地历史，等等）使用Git，那么习惯把 git fetch 和 git merge 分开做会有很大帮助。
 
-  参考链接：  
-[知乎 clone 和 pull 的区别](https://www.zhihu.com/question/39595933)  
-[Git 少用 Pull 多用 Fetch 和 Merge](http://www.cnblogs.com/flying_bat/p/3408634.html)  
+## Git 打包 Zip
+```
+git archive --format zip --output /path/to/file.zip master
+```
+
+##  参考链接：  
+- [知乎 clone 和 pull 的区别](https://www.zhihu.com/question/39595933)  
+- [Git 少用 Pull 多用 Fetch 和 Merge](http://www.cnblogs.com/flying_bat/p/3408634.html)  
+- [git 文件打包命令](https://segmentfault.com/a/1190000002443283)
 > ***我最擅长从零开始创造世界，所以从来不怕失败，它最多也就让我一无所有。***  
 —— Git少用Pull多用Fetch和Merge
