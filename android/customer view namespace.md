@@ -38,18 +38,15 @@ format可以指定值为多种类型，比如circleColor可以是color，也可�
 ```
 - 自定义View  
 自定义View的功能很简单，获取xml文件中设置的circleColor和radius,画个圆：  
-
 ```java  
 public class CircleView extends View
 {
     private float mRadius;
     private int mColor;
-
     public CircleView(Context context)
     {
         this(context, null);
     }
-
     public CircleView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
@@ -70,42 +67,31 @@ public class CircleView extends View
         //使用完TypedArray,一定要调用recycler()
         typedArray.recycle();
     }
-
     @Override
     protected void onDraw(Canvas canvas)
     {
         super.onDraw(canvas);
-
         //初始化paint
         Paint paint = new Paint();
         paint.setColor(mColor);
-
         int width = getMeasuredWidth();
         int height = getMeasuredHeight();
-
         //画圆
         canvas.drawCircle(width / 2, height / 2, mRadius, paint);
     }
-
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
         int measuredHeight = measureDimension(heightMeasureSpec);
         int measuredWidth = measureDimension(widthMeasureSpec);
-
         setMeasuredDimension(measuredWidth, measuredHeight);
     }
-
     private int measureDimension(int measureSpec)
     {
         int result = 100;
-
         int specMode = MeasureSpec.getMode(measureSpec);
         int specSize = MeasureSpec.getSize(measureSpec);
-
         if (specMode == MeasureSpec.EXACTLY)
         {
             result = specSize;
@@ -113,16 +99,14 @@ public class CircleView extends View
         {
             result = Math.min(result, specSize);
         }
-
         return result;
     }
-
 }
-
 ```
+
 # 使用到自定义attr的其他情况
 
-```
+```java
 public CoordinatorLayout.Behavior (Context context, AttributeSet attrs)
 ```
 
