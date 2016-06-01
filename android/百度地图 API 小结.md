@@ -6,4 +6,5 @@
 </service>
 ```
 
-### 
+### 百度地图的 Search
+使用完一定要销毁，如果不销毁，关闭 Activity ，在使用 MapView 的时候地图操作会很卡。
