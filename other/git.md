@@ -104,7 +104,7 @@ git pull相当于git fetch和git merge。其意思是先从远程下载git项目
 
 ## Git 打包 Zip
 ```
-git archive --format zip --output /path/to/file.zip master
+git archive --format zip --output file.zip master
 ```
 
 ##  参考链接：  

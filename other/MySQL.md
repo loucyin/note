@@ -1,4 +1,4 @@
-# 全文索引
+## 全文索引
 - 创建表格的时候，声明全文索引  
 ```
 CREATE TABLE articles
@@ -51,7 +51,8 @@ alter table articles drop index ngram_idx;
 
   参考链接：  
 [InnoDB全文索引：N-gram Parser](http://mysqlserverteam.com/innodb%E5%85%A8%E6%96%87%E7%B4%A2%E5%BC%95%EF%BC%9An-gram-parser/?spm=5176.blog15673.yqblogcon1.4.Bvz18O)  
-# 搜索的实现
+
+## 搜索的实现
 - 需求  
   1. 对三个表进行搜索；  
   2. 将搜索结果合并；  
