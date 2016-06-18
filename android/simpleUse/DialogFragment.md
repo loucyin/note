@@ -16,6 +16,16 @@ public void showEditDialog(View view)  {
     editNameDialog.show(getFragmentManager(), "EditNameDialog");  
 }  
 ```
+
+## DialogFragmen 去掉标题
+```java
+@Override
+public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    injected = true;
+    getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+    return x.view().inject(this, inflater, container);
+}
+```
 ## DialogFragmen 全屏
 ```java
 @Override
