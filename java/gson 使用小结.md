@@ -46,9 +46,83 @@ Gson gson = new GsonBuilder()
         .create();
 gson.toJson(category);
 ```
+
+### @SerializedName
+由于命名方式不统一，造成命名规范的不一致。
+@SerializedName("name") 可以为成员变量起别名。
+```java
+import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
+
+public class GsonTestModel {
+	@SerializedName("age")
+	private int mAge ;
+	@SerializedName("name")
+	private String mName;
+	@SerializedName("gender")
+	private String mGender;
+	@SerializedName("id")
+	private String mId;
+
+	public int getAge() {
+		return mAge;
+	}
+	public void setAge(int age) {
+		mAge = age;
+	}
+	public String getName() {
+		return mName;
+	}
+	public void setName(String name) {
+		mName = name;
+	}
+	public String getGender() {
+		return mGender;
+	}
+	public void setGender(String gender) {
+		mGender = gender;
+	}
+	public String getId() {
+		return mId;
+	}
+	public void setId(String id) {
+		mId = id;
+	}
+
+	public String toJson(){
+		Gson gson = new Gson();
+		return gson.toJson(this);
+	}
+
+
+	@Override
+	public String toString() {
+		return "GsonTestModel [mAge=" + mAge + ", mName=" + mName + ", mGender=" + mGender + ", mId=" + mId + "]";
+	}
+	public static GsonTestModel parseJson(String json) {
+		Gson gson = new Gson();
+		return gson.fromJson(json, GsonTestModel.class);
+	}
+
+	public static void main(String[] args) {
+		GsonTestModel model = new GsonTestModel();
+		model.setAge(10);
+		model.setGender("男");
+		model.setId("0901101416");
+		model.setName("李小六");
+		String json = model.toJson();
+		System.out.println(json);
+
+		GsonTestModel gsonTestModel = parseJson(json);
+		System.out.println(gsonTestModel.toString());
+	}
+}
+```
+
 ## 参考链接
 - [Java 对象的序列化和反序列化](http://www.cnblogs.com/xdp-gacl/p/3777987.html)
 - [Java Doc - Interface Serializable](https://docs.oracle.com/javase/7/docs/api/java/io/Serializable.html)
 - [serialVersionUID 的作用](http://www.cnblogs.com/guanghuiqq/archive/2012/07/18/2597036.html)
 - [serialVersionUID 作用](http://blog.csdn.net/dancen/article/details/7236575)
 - [gson 字段过滤](http://www.jianshu.com/p/0e40a52c0063)
+- [ 技巧——gson之实体对应的字段取别名](http://blog.csdn.net/bzy601638015/article/details/32916281)
