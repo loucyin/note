@@ -158,9 +158,10 @@ Android Studio 提示下载完源码后，就没有下文了。
 神奇的事情，没发现有多大区别。
 ### 错误的代码
 一开始，将 Drawable 作为 ImageGetter 的成员使用，因为 Tomcat 的管理界面就一张图片，但是，当加载两张图片的时候，哇哦，神奇的事情发生了，它们显示的是后面加载的图片。
-### 参考链接：
-[Retrofit](http://square.github.io/retrofit/)  
-[How to get response as String using retrofit without using GSON or any other library in android ](http://stackoverflow.com/questions/32617770/how-to-get-response-as-string-using-retrofit-without-using-gson-or-any-other-lib)  
-[Retrofit API to retrieve a png image](http://stackoverflow.com/questions/25462523/retrofit-api-to-retrieve-a-png-image)  
-[Android studio 关联源代码](http://blog.csdn.net/duguang77/article/details/46699453)  
-[Android Studio: how to attach Android SDK sources?](http://stackoverflow.com/questions/21221679/android-studio-how-to-attach-android-sdk-sources)  
+
+## 参考链接：
+- [Retrofit](http://square.github.io/retrofit/)  
+- [How to get response as String using retrofit without using GSON or any other library in android ](http://stackoverflow.com/questions/32617770/how-to-get-response-as-string-using-retrofit-without-using-gson-or-any-other-lib)  
+- [Retrofit API to retrieve a png image](http://stackoverflow.com/questions/25462523/retrofit-api-to-retrieve-a-png-image)  
+- [Android studio 关联源代码](http://blog.csdn.net/duguang77/article/details/46699453)  
+- [Android Studio: how to attach Android SDK sources?](http://stackoverflow.com/questions/21221679/android-studio-how-to-attach-android-sdk-sources)  

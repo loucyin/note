@@ -1,3 +1,8 @@
+## 临时解决方案
+```
+targetSdkVersion 22
+```
+设置 targetSdkVersion 小于 23，会默认给予所有授权。
 ## 参考链接
 - [Android 6.0 运行时权限处理完全解析](http://www.w2bc.com/article/101798?from=extend)
 - [Android M(6.0) 权限爬坑之旅](http://www.open-open.com/lib/view/open1445671646351.html)
