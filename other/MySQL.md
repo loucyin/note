@@ -77,3 +77,10 @@ union all
 select id,content as title,@type:= 2 as type,createTime as time from j_bbs.discuss where createTime is not null and match(content) against("用户")
 order by time desc;
 ```
+## 多表查询
+```sql
+select a.*, b.name as startCityName, c.name as endCityName from sccx.fast_xl a 
+left join sccx.area b on a.startCity = b.ID
+left join sccx.area c on a.endCity = c.ID
+```
+通过 join on 语句拼接数据。
