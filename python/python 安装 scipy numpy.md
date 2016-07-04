@@ -58,5 +58,15 @@ if __name__ == "__main__":
     RegisterPy()
 ```
 写入文件，运行，显示 python 2.7 is already registered ，安装 scipy 即可成功。
+## 安装 numpy matplotlib
+使用 pip 命令进行安装
+```
+pip install numpy
+```
+> For standard Python installations you will also need to install compatible versions of setuptools, numpy, python-dateutil, pytz, pyparsing, and cycler in addition to matplotlib.
+
+安装 matplotlib 还需要安装上面的其他库，仍旧使用 pip 命令进行安装
+
+
 ## 参考链接
 - [python version 2.7 required,which was not found in the registry](http://www.cnblogs.com/thinksasa/archive/2013/08/26/3283695.html)
