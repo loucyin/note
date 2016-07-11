@@ -79,8 +79,20 @@ order by time desc;
 ```
 ## 多表查询
 ```sql
-select a.*, b.name as startCityName, c.name as endCityName from sccx.fast_xl a 
+select a.*, b.name as startCityName, c.name as endCityName from sccx.fast_xl a
 left join sccx.area b on a.startCity = b.ID
 left join sccx.area c on a.endCity = c.ID
 ```
 通过 join on 语句拼接数据。
+
+## You are using safe update mode
+使用 update 或者 delete 语句时产生的错误。
+```
+Error Code: 1175. You are using safe update mode and you tried to update a table without   
+a WHERE that uses a KEY column To disable safe mode, toggle the option in Preferences ->  
+SQL Editor and reconnect.
+```
+解决方法：
+```sql
+SET SQL_SAFE_UPDATES = 0;
+```

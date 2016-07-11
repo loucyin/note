@@ -21,3 +21,5 @@ android:focusableInTouchMode="true"
 InputMethodManager methodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 methodManager.hideSoftInputFromWindow(mActSearch.getWindowToken(),0);
 ```
+## Android view 被覆盖后依旧可以响应点击事件
+设置上层 View 的 clickable 属性为 true 即可解决。
