@@ -12,3 +12,4 @@ adb connect 192.168.1.31:5555
 ```
 ## 参考链接
 - [使用WIFI连接手机adb](http://blog.csdn.net/hustpzb/article/details/19615675)
+- [Android应用请求获取Root权限](http://blog.csdn.net/zhufuing/article/details/7875216)

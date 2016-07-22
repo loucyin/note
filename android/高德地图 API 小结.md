@@ -84,6 +84,25 @@ mNavi = AMapNavi.getInstance(MyApplication.getINSTANCE());
 ```
 神奇的错误，而且找不到出处。最后发现用不能用 AppCompatActivity 来装 AMapNaviView  竟然是 support v7 包的问题！将 AppCompatActivity 换成 Activity 问题消失。
 
+## 64 位系统不兼容 32 库
+- 加入 abiFilter
+```gradle
+defaultConfig {
+  ......
+    ndk {
+        abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
+    }
+}
+```
+
+- 在 gradle.properties 文件中加入，制定编译的时候做系统兼容
+```properties
+android.useDeprecatedNdk=true
+```
+
 ## 参考链接
 - [高德地图sdk的AMapNavi.getInstance为null解决办法](http://www.cnblogs.com/xdao/p/gaode_map.html)
 - [aMapNavi=AMapNavi.getInstance(getApplicationContext()); 出错](http://lbsbbs.amap.com/forum.php?mod=viewthread&tid=10578&highlight=AMapNavi.getInstance)
+- [android64位机子兼容32位.so库文件](http://blog.csdn.net/vhawk/article/details/49964475)
+- [关于Android的.so文件你所需要知道的](http://www.jianshu.com/p/cb05698a1968)
+- [What you should know about .so files](http://ph0b.com/android-abis-and-so-files/)
