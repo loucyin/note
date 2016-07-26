@@ -67,6 +67,20 @@ pip install numpy
 
 安装 matplotlib 还需要安装上面的其他库，仍旧使用 pip 命令进行安装
 
+## python 镜像设置
+在unix和macos，配置文件为：$HOME/.pip/pip.conf  
+在windows上，配置文件为：%HOME%\pip\pip.ini  
+修改 ~/.pip/pip.conf (没有就创建一个)， 修改 index-url至tuna，例如
+```
+[global]
+index-url = https://pypi.tuna.tsinghua.edu.cn/simple
+```
 
 ## 参考链接
+- [matplotlib installing](http://matplotlib.org/users/installing.html)
 - [python version 2.7 required,which was not found in the registry](http://www.cnblogs.com/thinksasa/archive/2013/08/26/3283695.html)
+- [pypi 镜像使用帮助](https://mirrors.tuna.tsinghua.edu.cn/help/pypi/)
+- [使用国内镜像源来加速python pypi包的安装](http://topmanopensource.iteye.com/blog/2004853)
+- [Pipy pip源镜像，官网被墙时使用](http://www.tuicool.com/articles/3MJZBb)
+- [pip user guide](https://pip.pypa.io/en/latest/user_guide/#config-file)
+- [“/usr/bin/ld: cannot find -lz”](http://stackoverflow.com/questions/3373995/usr-bin-ld-cannot-find-lz)

@@ -46,13 +46,13 @@ update user set authentication_string = password('lcy2016') where user = 'root';
 SET PASSWORD FOR user = PASSWORD('new_password');
 ```
 ## ubuntu 16.04 安装 mysql
-[How To Install Linux, Apache, MySQL, PHP (LAMP) stack on Ubuntu 16.04](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-16-04) 
-[2.10.4 Securing the Initial MySQL Accounts](http://dev.mysql.com/doc/refman/5.7/en/default-privileges.html)  
-[mysql 5.7 设置root密码方法](http://my.oschina.net/zhailibao2010/blog/529887)  
-[管理员 修改MySQL 5.7.9 新版本的root密码方法以及一些新变化整理](http://www.bubuko.com/infodetail-1339969.html)  
-[B.5.3.2 How to Reset the Root Password](http://dev.mysql.com/doc/refman/5.7/en/resetting-permissions.html)
-[如何重设 MySQL 的 root 密码](http://www.ghostchina.com/how-to-reset-mysqls-root-password/)
+- [How To Install Linux, Apache, MySQL, PHP (LAMP) stack on Ubuntu 16.04](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-16-04)
+- [2.10.4 Securing the Initial MySQL Accounts](http://dev.mysql.com/doc/refman/5.7/en/default-privileges.html)  
+- [mysql 5.7 设置root密码方法](http://my.oschina.net/zhailibao2010/blog/529887)  
+- [管理员 修改MySQL 5.7.9 新版本的root密码方法以及一些新变化整理](http://www.bubuko.com/infodetail-1339969.html)  
+- [B.5.3.2 How to Reset the Root Password](http://dev.mysql.com/doc/refman/5.7/en/resetting-permissions.html)
+- [如何重设 MySQL 的 root 密码](http://www.ghostchina.com/how-to-reset-mysqls-root-password/)
 ## MySQL Workbench
-[下载地址](http://downloads.mysql.com/archives/workbench/)
+- [下载地址](http://downloads.mysql.com/archives/workbench/)
 ## MySQL 源码
-[MySQL on GitHub](http://mysqlrelease.com/2014/09/mysql-on-github/)
+- [MySQL on GitHub](http://mysqlrelease.com/2014/09/mysql-on-github/)
