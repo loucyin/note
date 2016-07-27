@@ -112,3 +112,14 @@ sudo chgrp -R username ./
 执行玩之后打开 eclipse。   
 发现可以使用中文输入法，貌似没有以前的问题了，神奇的事情。  
 好像之前是没有更改过 workspace 的所属用户和组。
+
+## 关于 eclipse preference 显示不正常的问题
+在 eclipse.ini 文件中添加 GTK 版本：
+在 `--launcher.appendVmargs` 下面添加：
+```
+--launcher.GTK_version
+2
+```
+
+## 参考链接
+- [Eclipse not working in 16.04](http://askubuntu.com/questions/761604/eclipse-not-working-in-16-04)
