@@ -26,7 +26,15 @@ if(mClient == null){
 @GET
 Observable<ResponseBody> download(@Url String url );
 ```
-文件下载就是一个一个链接而已，
+文件下载就是一个链接而已，文件下载完成后，会返回 ResponseBody ，下载文件比较大时，会出现 oom 。
+```java
+@Streaming
+@GET
+Observable<ResponseBody> download(@Url String url );
+```
+
+
+
 
 ## 参考链接
 - [解决Retrofit文件下载进度显示问题](http://blog.csdn.net/ljd2038/article/details/51189334)
