@@ -116,3 +116,5 @@ builder.list();
 // 获取单个对象
 builder.unique();
 ```
+## 参考链接
+- [GreenDao 2.2 数据库加密](http://blog.csdn.net/axuanqq/article/details/51325299)
