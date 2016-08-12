@@ -75,6 +75,22 @@ OkHttp 3 中的 OkHttpClient 没有 cancel 方法了，尝试使用 OkHttpClient
 在 stackoverflow 找到一个解决方法，通过实现 Callback 接口，自定义 CancelableCallback ,实现取消请求。  
 我使用的是 RxJava ，直接保存 Subscription ,使用 Subscription.unsubscribe() 方法取消订阅，就可以实现请求的取消。取消订阅后会产生 InterruptedIOException ，异常处理中捕获 InterruptedIOException 捕捉取消下载操作。
 
+## 监听接口
+```java
+public interface DownloadListener {
+    void onStart();
+    void onStop();
+    void onProgress(long progress, long total);
+    void onSuccess(File file);
+    void onError(Throwable throwable);
+}
+```
+
+## 下载管理
+需要实现的功能：
+- 启动下载
+- 停止下载
+- 实现文件缓存  
 
 ## 参考链接
 - [解决Retrofit文件下载进度显示问题](http://blog.csdn.net/ljd2038/article/details/51189334)
