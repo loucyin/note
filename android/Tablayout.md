@@ -34,3 +34,7 @@ public CharSequence getPageTitle(int position) {
     return mTitles==null?""+position:mTitles.get(position);
 }
 ```
+
+## 参考链接
+- [android design library提供的TabLayout的用法](https://segmentfault.com/a/1190000003500271)
+- [TabLayout](https://developer.android.com/reference/android/support/design/widget/TabLayout.html#attr_android.support.design:tabGravity)
