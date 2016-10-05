@@ -1,16 +1,59 @@
-- 根据 jks 文件生成签名
+# android 签名
+
+## 查看签名信息
+
+命令：
+
 ```
 keytool -v -list -keystore keystore.jks
 ```
-driver.jks
+
+输出：
+
 ```
 MD5: 36:01:FC:D4:BE:16:81:FC:D5:10:EA:5E:45:C3:5F:D1
 SHA1: A8:34:30:EC:22:27:2B:67:82:F0:E8:65:9E:40:90:3F:5E:0C:12:EA
 SHA256: F3:62:49:AE:D6:FA:C0:1A:7D:88:16:57:51:4A:9C:EE:46:76:33:5C:EF:B9:D2:47:7A:A4:F6:A7:41:06:11:94
 ```
-driver_d.jks
+
+## 修改签名文件密码
+
+> 修改密码和名称，不会导致md5值和sha1值改变
+
+## 修改别名
+
+## 调试中使用签名文件
+
+## 使用 apk 签名文件打包
+
+```groovy
+signingConfigs{
+    myConfig{
+        storeFile file("demo.jks")
+        storePassword "zhide2016"
+        keyAlias "demo"
+        keyPassword "zhide2016"
+    }
+    myConfigDebug{
+        storeFile file("demo_debug.jks")
+        storePassword "zhide2016"
+        keyAlias "demo_debug"
+        keyPassword "zhide2016"
+    }
+}
+buildTypes {
+    release {
+        signingConfig signingConfigs.myConfig
+        minifyEnabled false
+        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+    debug {
+        signingConfig signingConfigs.myConfigDebug
+    }
+}
 ```
-MD5: 97:25:C0:C9:1E:02:42:C7:CA:26:0E:58:B4:29:36:AD
-SHA1: 00:B4:6A:07:EB:6E:07:D3:CF:18:17:95:99:21:31:05:62:B4:55:83
-SHA256: F8:2A:FE:A5:14:2D:99:37:0F:79:2C:06:7E:AE:4A:40:A7:AD:3B:DD:E9:12:88:47:12:69:37:0A:DB:5A:38:CD
-```
+
+## 参考链接
+
+- [Android 修改keystore文件密码、alias名称](http://blog.csdn.net/smz520/article/details/46788799)
+- [修改Android签名证书keystore的密码、别名alias以及别名密码](http://www.cnblogs.com/exmyth/p/4722695.html)
