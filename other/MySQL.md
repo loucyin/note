@@ -1,3 +1,4 @@
+# MySQL 笔记
 ## 全文索引
 
 - 创建表格的时候，声明全文索引
@@ -35,7 +36,7 @@
   ) Engine=InnoDB CHARACTER SET utf8mb4;
   ```
 
-   在新建索引时
+  在新建索引时
 
   ```sql
   alter table articles add fulltext index ngram_idx(title) with parser ngram;
@@ -89,7 +90,7 @@
   order by time desc;
   ```
 
-   利用变量实现标记数据
+  利用变量实现标记数据
 
   ```sql
   select id,title,@type:= 0 as type,publishTime as time from j_bbs.essay where publishTime is not null and match(title,content) against("用户")
@@ -136,8 +137,20 @@ update sccx.kc a set a.zws = (select b.name from sccx.kc_cx b where b.id = a.kcC
 
 ## 字符串处理
 
+## trigger
+
+```sql
+delimiter $
+create trigger tg1
+after insert on orders
+for each row
+begin
+update goods set amount=amount-new.number where id = new.gid;
+end$
+```
 
 ## 参考链接
 
 - [UPDATE SET = (SELECT ) 语法的总结](http://blog.itpub.net/133735/viewspace-731988/)
 - [mysql处理字符串的两个绝招：substring_index,concat](http://blog.csdn.net/wolinxuebin/article/details/7845917)
+- [mysql之触发器trigger](http://www.cnblogs.com/zzwlovegfj/archive/2012/07/04/2576989.html)
