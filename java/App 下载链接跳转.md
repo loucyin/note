@@ -82,6 +82,12 @@ QQ 浏览器 | `Android` `MQQBrowser`
   3. IPhone 只能通过，跳转 AppleStore 进行下载。
   4. IPhone 微信中，不能跳转 AppleStore，需要提示用户在浏览器中打开链接。
 
+另外一种方式：
+
+1. 微信提示在浏览器中打开；
+2. Android 直接跳转下载链接；
+3. IPhone 跳转 AppleStore 链接。
+
 ## JS 处理
 
 ```html
