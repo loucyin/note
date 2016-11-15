@@ -42,6 +42,14 @@ make: *** [info] 错误 2
 sudo apt-get install docbook2x
 ```
 
+- 错误
+```
+Fatal error: expat.h: No such file or directory
+```
+```
+sudo apt-get install libexpat1-dev
+```
+
 ## 之前安装不完全的原因
 之前使用如下命令安装，忽略掉了 make 时的错误，导致安装不完全。
 ```
@@ -63,3 +71,6 @@ git clone git://github.com/git/git.git
 - 现象  
 git 帮助不全面，只显示简单的帮助内容。
 原因：缺少 asciidoc 依赖。
+
+## 参考链接
+- [Fatal error: expat.h: No such file or directory](https://github.com/scottcorgan/bucket-list/issues/2)

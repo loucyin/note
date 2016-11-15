@@ -32,6 +32,12 @@ free -m
   df -lh
   ```
 
+## 修改环境变量后使其马上生效
+```
+source /etc/profile
+source ~/.bashrc
+```
+
 ## 参考链接
 
 - [linux 查看系统信息命令(比较全)](http://blog.csdn.net/lhf_tiger/article/details/7102753)
