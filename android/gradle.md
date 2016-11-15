@@ -61,8 +61,8 @@ gradle 脚本使用 Groovy 写的，什么是 Groovy 呢：
         System.out.println("Hello Java!");
     }
   }
-  JavaGreeter greeter = new JavaGreeter()
-  greeter.sayHello()
+  JavaGreeter greeter = new JavaGreeter();
+  greeter.sayHello();
   ```
 
 ## gradle task
@@ -246,6 +246,35 @@ gradle 脚本使用 Groovy 写的，什么是 Groovy 呢：
   BUILD SUCCESSFUL
   ```
 
+## gradle 使用 maven 仓库
+
+- 在工程下的 build.gradle 中添加 maven 仓库：
+
+  ```groovy
+  allprojects {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+  }
+  ```
+
+- maven 配置
+
+  ```xml
+  <dependency>
+  <groupId>com.google.zxing</groupId>
+  <artifactId>core</artifactId>
+  <version>(the current version)</version>
+  </dependency>
+  ```
+
+- 转换为 gradle 配置
+
+  ```groovy
+  compile 'com.google.zxing:core:3.3.0'
+  ```
+
 ## 参考链接
 
 - [百度百科 gradle](http://baike.baidu.com/link?url=irOH1pxXeqYPRZ7pofxDiBZ7I37nvpzzS75qfkXYQ3FRGuUQE5BhZ11xRzwou2q7Pi9K525JkZPhwaV9Fai8PK)
@@ -254,3 +283,4 @@ gradle 脚本使用 Groovy 写的，什么是 Groovy 呢：
 - [ud867: Gradle for Android and Java](https://github.com/udacity/ud867)
 - [Gradle 视频教程](https://cn.udacity.com/course/gradle-for-android-and-java--ud867)
 - [gradle user guide](https://docs.gradle.org/current/userguide/userguide.html)
+- [Maven实战（六）----Gradle，构建工具的未来？](http://www.infoq.com/cn/news/2011/04/xxb-maven-6-gradle)

@@ -53,7 +53,17 @@ buildTypes {
 }
 ```
 
+## 生成 keystore 文件
+
+```
+keytool -keystore clientkeystore -genkey -alias client
+```
+
+- clientkeystore keystore 文件名
+- clent alias keystore 下的别名
+
 ## 参考链接
 
 - [Android 修改keystore文件密码、alias名称](http://blog.csdn.net/smz520/article/details/46788799)
 - [修改Android签名证书keystore的密码、别名alias以及别名密码](http://www.cnblogs.com/exmyth/p/4722695.html)
+- [Configuring Java CAPS for SSL Support](https://docs.oracle.com/cd/E19509-01/820-3503/ggfen/index.html)
