@@ -18,7 +18,7 @@ iptables -A INPUT -s 192.168.0.100 -p tcp --dport 22 -j ACCEPT
 
 ## iptables 配置文件
 
-- 文件路径：
+- CentOS 下 iptables 配置文件路径：
 
 ```
 /etc/sysconfig/iptables
@@ -59,8 +59,24 @@ COMMIT
 -A INPUT -p tcp -m state --state NEW -m tcp --dport 60000:60003 -j ACCEPT
 ```
 
+## Ubuntu 下的防火墙
+系统：
+```
+elementory os 0.4
+```
+查看防火墙规则：
+```
+sudo iptables -L
+```
+
+防火墙默认是关闭的。
+
+> WARNING: Iptables and NetworkManager can conflict. Also if you are concerned enough about security to install a firewall you might not want to trust NetworkManager. Also note NetworkManager and iptables have opposite aims. Iptables aims to keep any questionable network traffic out. NetworkManager aims to keep you connected at all times. Therefore if you want security all the time, run iptables at boot time. If you want security some of the time then NetworkManager might be the right choice.
+
+保存规则比较麻烦，还可能会发生冲突，作为一个小白止步于此了。
 ## 参考链接
 
 - [Linux配置防火墙详细步骤（iptables命令使用）](https://my.oschina.net/799835984/blog/663361)
 - [CentOS下配置iptables防火墙](http://os.51cto.com/art/201103/249398.htm)
-- [](https://wiki.archlinux.org/index.php/Iptables_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#.E9.85.8D.E7.BD.AE.E6.96.87.E4.BB.B6)
+- [Iptables (简体中文)](https://wiki.archlinux.org/index.php/iptables_%28%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87%29)
+- [IptablesHowTo](https://help.ubuntu.com/community/IptablesHowTo)
