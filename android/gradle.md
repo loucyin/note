@@ -275,6 +275,38 @@ gradle 脚本使用 Groovy 写的，什么是 Groovy 呢：
   compile 'com.google.zxing:core:3.3.0'
   ```
 
+## gradle 构建 Java web 项目
+
+### web 项目的目录结构
+
+|-WebRoot<br>
+| -WEB-INF<br>
+| -lib<br>
+| -classes
+
+### gradle 配置
+
+- 需要将编译的 class 文件复制到 web 项目下
+- 需要将 lib 复制到 web 项目下
+- 配置 web.xml
+- 配置部署环境
+
+```groovy
+build{
+    doLast{
+        delete 'webapp/WEB-INF/classes'
+        copy{
+            from 'build/classes/main'
+            into 'webapp/WEB-INF/classes'
+        }
+        copy{
+            from configurations.runtime
+            into 'webapp/WEB-INF/lib'
+        }
+    }
+}
+```
+
 ## 参考链接
 
 - [百度百科 gradle](http://baike.baidu.com/link?url=irOH1pxXeqYPRZ7pofxDiBZ7I37nvpzzS75qfkXYQ3FRGuUQE5BhZ11xRzwou2q7Pi9K525JkZPhwaV9Fai8PK)

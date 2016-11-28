@@ -1,4 +1,58 @@
 # MySQL 笔记
+
+## MySql 设置 root 密码
+
+## MySql 配置远程访问
+
+- 创建用户
+
+  ```
+  CREATE USER 'username'@'host' IDENTIFIED BY 'password';
+  ```
+
+- 设置密码
+
+  ```
+  SET PASSWORD FOR 'username'@'host' = PASSWORD('newpassword');
+  update user set password=password('newpassword') where user = 'username' and host = 'host';
+  ```
+
+- 删除用户
+
+  ```
+  DROP USER 'username'@'host';
+  ```
+
+- 授权
+
+  ```
+  GRANT privileges ON databasename.tablename TO 'username'@'host'
+  ```
+
+  说明:
+
+  > privileges - 用户的操作权限,如SELECT , INSERT , UPDATE 等(详细列表见该文最后面). 如果要授予所的权限则使用ALL; databasename - 数据库名,tablename-表名,如果要授予该用户对所有数据库和表的相应操作权限则可用 _._ 表示
+
+  ```
+  GRANT SELECT, INSERT ON test.user TO 'pig'@'%';
+  GRANT ALL ON *.* TO 'pig'@'%';
+  GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'WITH GRANT OPTION;
+  ```
+
+- 创建一个 host 为 % 的用户
+
+  ```
+  CREATE USER 'username'@'%' IDENTIFIED BY 'password';
+  ```
+
+  远程访问的用户名为 username , 密码为 password。
+
+- 操作完用户后执行
+
+  ```
+  flush privileges;
+  ```
+
 ## 全文索引
 
 - 创建表格的时候，声明全文索引
