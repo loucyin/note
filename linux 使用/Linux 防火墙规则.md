@@ -60,11 +60,15 @@ COMMIT
 ```
 
 ## Ubuntu 下的防火墙
+
 系统：
+
 ```
 elementory os 0.4
 ```
+
 查看防火墙规则：
+
 ```
 sudo iptables -L
 ```
@@ -74,9 +78,23 @@ sudo iptables -L
 > WARNING: Iptables and NetworkManager can conflict. Also if you are concerned enough about security to install a firewall you might not want to trust NetworkManager. Also note NetworkManager and iptables have opposite aims. Iptables aims to keep any questionable network traffic out. NetworkManager aims to keep you connected at all times. Therefore if you want security all the time, run iptables at boot time. If you want security some of the time then NetworkManager might be the right choice.
 
 保存规则比较麻烦，还可能会发生冲突，作为一个小白止步于此了。
+
+## CentOS 7 firewall
+
+```
+systemctl stop firewalld.service #停止firewall
+systemctl disable firewalld.service #禁止firewall开机启动
+
+yum install iptables-services #安装
+systemctl restart iptables.service #最后重启防火墙使配置生效
+systemctl enable iptables.service #设置防火墙开机启动
+```
+
 ## 参考链接
 
 - [Linux配置防火墙详细步骤（iptables命令使用）](https://my.oschina.net/799835984/blog/663361)
 - [CentOS下配置iptables防火墙](http://os.51cto.com/art/201103/249398.htm)
 - [Iptables (简体中文)](https://wiki.archlinux.org/index.php/iptables_%28%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87%29)
 - [IptablesHowTo](https://help.ubuntu.com/community/IptablesHowTo)
+- [CentOS7下Firewall防火墙配置用法详解](http://www.centoscn.com/CentOS/Intermediate/2015/0313/4879.html)
+- [centos7 关闭firewall安装iptables并配置](http://linux.it.net.cn/CentOS/fast/2015/0110/11567.html)
