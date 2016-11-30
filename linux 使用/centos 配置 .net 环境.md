@@ -106,6 +106,14 @@ yum-config-manager --add-repo http://download.mono-project.com/repo/centos/
   ./jws restart
   ```
 
+## windows to linux 大小写
+
+> 首先正视Linux和win的一些区别，也就是一些常识，win的文件命名不区分大小写，而Linux区分大小写，所以创建文件的时候要注意大小写
+
+编辑 /usr/jexus/jws
+
+> 将#export MONO_IOMAP="all"前面的"#"去掉!
+
 ## 参考链接
 
 - [jexus](http://www.jexus.org/)
@@ -114,3 +122,5 @@ yum-config-manager --add-repo http://download.mono-project.com/repo/centos/
 - [centos 7下安装Mono、Jexus，遇到libgdiplus编译安装出错；点击查看解决方法](https://www.linuxdot.net/bbsfile-3751)
 - [centos7+mono4.2.3.4+jexus5.8.1跨平台起飞](http://www.cnblogs.com/xpszy/p/5300297.html)
 - [Install Mono on Linux](http://www.mono-project.com/docs/getting-started/install/linux/)
+- [C#在Linux上的开发指南](http://www.cnblogs.com/RainbowInTheSky/p/5496777.html#commentform)
+- [使用Jexus+Mono运行.net开发的项目如何不让URL区分大小写](http://blog.csdn.net/fwj380891124/article/details/50808754)
