@@ -33,9 +33,16 @@ free -m
   ```
 
 ## 修改环境变量后使其马上生效
+
 ```
 source /etc/profile
 source ~/.bashrc
+```
+
+## 查看文件夹大小
+
+```
+du -h
 ```
 
 ## 参考链接

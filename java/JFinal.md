@@ -16,10 +16,10 @@
 
   ```java
   @Override
-   public void configConstant(Constants arg0)
-   {
-       arg0.setMaxPostSize(100*Const.DEFAULT_MAX_POST_SIZE);
-   }
+  public void configConstant(Constants arg0)
+  {
+      arg0.setMaxPostSize(100*Const.DEFAULT_MAX_POST_SIZE);
+  }
   ```
 
 2. 通过 Controller 获取文件或者文件列表时，设置 maxPostSize。
@@ -30,6 +30,12 @@
   mController.getFiles(uploadPath, maxPostSize);
   mController.getFiles(uploadPath, maxPostSize, encoding);
   ```
+
+## jfinal 常用的目录
+
+```java
+PathKit.getWebRootPath();
+```
 
 ## jfinal 文件上传 error 500
 
