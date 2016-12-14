@@ -14,7 +14,11 @@
 ## 备份
 
 ```
- tar -g /tmp/fupin.snap -zcpf - default | split -b 1024M - backup/fupin$(date -I).tar.gz_
+   tar -g /tmp/fupin.snap -zcpf - default | split -b 1024M - backup/fupin$(date -I).tar.gz_
+```
+
+```
+  tar -g /tmp/fupin.snap -zcpf backup/fupin$(date -I).tar.gz default
 ```
 
 > `-g`选项可以理解备份时给目录文件做一个快照，记录权限和属性等信息，第一次备份时/tmp/fupin.snap不存在，会新建一个并做完全备份。当目录下的文件有修改后，再次执行第一条备份命令（记得修改后面的档案文件名），会自动根据-g指定的快照文件，增量备份修改过的文件，包括权限和属性，没有动过的文件不会重复备份。

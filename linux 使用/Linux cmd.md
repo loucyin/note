@@ -45,7 +45,14 @@ source ~/.bashrc
 du -h
 ```
 
+## 远程连接Linux，断开连接后程序继续运行
+
+```
+nohup
+```
+
 ## 参考链接
 
 - [linux 查看系统信息命令(比较全)](http://blog.csdn.net/lhf_tiger/article/details/7102753)
 - [Linux man命令的使用方法](http://www.cnblogs.com/hnrainll/archive/2011/09/06/2168604.html)
+- [远程连接Linux，如何使程序断开连接后继续运行](http://blog.csdn.net/lyjcn/article/details/52780555)

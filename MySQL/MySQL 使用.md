@@ -79,9 +79,6 @@ mysql -u 用户名 -p 数据库名 < 存放位置
   alter table articles drop index ngram_idx;
   ```
 
-  参考链接：<br>
-  [InnoDB全文索引：N-gram Parser](http://mysqlserverteam.com/innodb%E5%85%A8%E6%96%87%E7%B4%A2%E5%BC%95%EF%BC%9An-gram-parser/?spm=5176.blog15673.yqblogcon1.4.Bvz18O)
-
 ## 搜索的实现
 
 - 需求
@@ -150,7 +147,7 @@ update sccx.kc a set a.zws = (select b.name from sccx.kc_cx b where b.id = a.kcC
 
 ## 字符串处理
 
-## trigger
+### trigger
 
 ```sql
 delimiter $
@@ -162,8 +159,21 @@ update goods set amount=amount-new.number where id = new.gid;
 end$
 ```
 
+### 判断是否有汉字
+
+```sql
+SELECT * FROM h_bfzzr WHERE NOT (jtrk REGEXP "[u0391-uFFE5]");
+```
+
+### 判断数据是否有数字
+
+```sql
+SELECT * FROM h_bfzzr WHERE  (zrrdw REGEXP '^[0-9]*$');
+```
+
 ## 参考链接
 
 - [UPDATE SET = (SELECT ) 语法的总结](http://blog.itpub.net/133735/viewspace-731988/)
 - [mysql处理字符串的两个绝招：substring_index,concat](http://blog.csdn.net/wolinxuebin/article/details/7845917)
 - [mysql之触发器trigger](http://www.cnblogs.com/zzwlovegfj/archive/2012/07/04/2576989.html)
+- [InnoDB全文索引：N-gram Parser](http://mysqlserverteam.com/innodb%E5%85%A8%E6%96%87%E7%B4%A2%E5%BC%95%EF%BC%9An-gram-parser/?spm=5176.blog15673.yqblogcon1.4.Bvz18O)
