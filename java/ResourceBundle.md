@@ -48,9 +48,55 @@ public static String changeCoding(String str){
 }
 ```
 
-## JavaWeb 下的 resources 咋用
+## 神奇的大坑
+
+在 ubuntu 16.04 下面运行 java web 项目上面的代码，输出的竟然又是乱码！
+
+### java 的转码工具 native2ascii
+
+使用方式：
+
+```
+native2ascii -encoding utf-8 string.properties str.properties
+```
+
+## 避免乱码
+
+打包 web 工程的时候，把 properties 文件进行转码。
+
+gradel 实现：
+
+```groovy
+task native2ascii{
+    doLast{
+        FileTree tree = fileTree(dir: 'src/main/resources')
+        tree.include '**/*.properties'
+        String srcDir = new File("${projectDir}/src/main/resources")
+        String buildDir = new File("${projectDir}/build/resources/main")
+
+        println(srcDir)
+        println(buildDir)
+        tree.each {File file ->
+            String path = file.getAbsolutePath()
+            String desPath = path.replace(srcDir,buildDir)
+            exec{
+                executable = 'native2ascii'
+                args = ["-encoding","utf-8",path,desPath]
+            }
+        }
+    }
+}
+
+processResources{
+    finalizedBy "native2ascii"
+}
+```
+
+- native2ascii 负责将 `src/main/resources` 下所有的 properties 文件转码到 `build/resources/main` 下面。
+- processResources 任务执行完成后会执行 native2ascii 任务
 
 ## 参考链接
 
 - [Resource Files](https://www.jetbrains.com/help/idea/2016.3/resource-files.html)
 - [IntelliJ IDEA读取资源文件](http://www.linuxidc.com/Linux/2015-02/113325.htm)
+- [How to use exec() output in gradle](http://stackoverflow.com/questions/11093223/how-to-use-exec-output-in-gradle)
