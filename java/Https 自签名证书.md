@@ -31,7 +31,7 @@ keytool -list -rfc -keystore root.jks
 1. ### 做一根签名的根证书
 
   ```
-  keytool -genkeypair -alias root -keystore root.jks -keyalg RSA
+  keytool -genkeypair -alias root -keystore root.jks -keyalg RSA -ext BasicConstraints:"critical=ca:true" -ext KeyUsage="keyCertSign"
   ```
 
 2. ### 导出证书
