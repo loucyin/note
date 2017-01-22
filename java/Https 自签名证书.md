@@ -26,6 +26,12 @@ keytool -list -v -keystore client.jks
 keytool -list -rfc -keystore root.jks
 ```
 
+### keystore 导入
+
+```
+keytool -importkeystore -deststorepass changeit -destkeypass changeit -destkeystore bbb.jks -deststoretype jks -srckeystore aaa.jks -srcstoretype jks -srcstorepass changeit -alias tomcat
+```
+
 ## 自签名证书
 
 1. ### 做一根签名的根证书
