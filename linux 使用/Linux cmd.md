@@ -51,6 +51,14 @@ du -h
 nohup
 ```
 
+## 进程的前后台切换
+
+```
+jobs
+bg %1
+fg %1
+```
+
 ## 参考链接
 
 - [linux 查看系统信息命令(比较全)](http://blog.csdn.net/lhf_tiger/article/details/7102753)
