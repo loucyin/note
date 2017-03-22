@@ -2,6 +2,8 @@
 
 ## 配置文件
 
+**Mybatis 的映射配置文件里面的元素是有序的，必须按指定的顺序排列。**
+
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration
@@ -88,3 +90,5 @@ try {
 ```
 
 ## 参考链接
+
+- [XML 映射配置文件](http://www.mybatis.org/mybatis-3/zh/configuration.html)
