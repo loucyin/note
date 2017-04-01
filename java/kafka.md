@@ -3,6 +3,45 @@
 ## 什么鬼
 > Kafka是一种高吞吐量的分布式发布订阅消息系统，它可以处理消费者规模的网站中的所有动作流数据。这种动作（网页浏览，搜索和其他用户的行动）是在现代网络上的许多社会功能的一个关键因素。 这些数据通常是由于吞吐量的要求而通过处理日志和日志聚合来解决。 对于像Hadoop的一样的日志数据和离线分析系统，但又要求实时处理的限制，这是一个可行的解决方案。Kafka的目的是通过Hadoop的并行加载机制来统一线上和离线的消息处理，也是为了通过集群来提供实时的消费。
 
+它提供了类似于 JMS（Java Message Service） 的特性，但是在设计实现上完全不同，此外它并不是JMS规范的实现。kafka 对消息保存时根据Topic进行归类，发送消息者成为 Producer ,消息接受者成为 Consumer ,此外 kafka 集群有多个 kafka 实例组成，每个实例(server)成为 broker。无论是 kafka 集群，还是 producer 和 consumer 都依赖于 zookeeper 来保证系统可用性集群保存一些 meta 信息。
+
+## 用途
+
+- 构建可在系统或应用程序之间可靠获取数据的实时流数据流水线
+- 构建对数据流进行变换或反应的实时流应用程序
+
+## 4 个核心 API
+
+- Producer API 将记录发布到一个或多个主题
+- Consumer API 从一个或多个主题消费一条记录
+- Streams API 从一个或多个主题消费一条记录，并发布记录到一个或多个主题
+- Connector API 允许构建和运行复用那些连接 kafka 主题到已经存在的应用或者数据系统的生产者或消费者。
+
+![Kafuka API](./image/kafka-apis.png)
+图片来自官网
+
+## 命令
+- create topic
+```bash
+bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
+```
+- list topic
+```bash
+bin/kafka-topics.sh --list --zookeeper localhost:2181
+```
+
+- send message
+
+```bash
+bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
+```
+输入消息回车发送
+
+- start consumer
+```bash
+bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning
+```
+
 ## 下载
 
 [下载地址](http://kafka.apache.org/downloads)
@@ -137,3 +176,5 @@ public class KafkaConsumer {
 - [百度百科](http://baike.baidu.com/link?url=swNHcRq-sjnH9FbPm3cmYTl0KZ8fGPkr6YTk7pxenXm8KRBb2Pxje
 TiBgIaHL0MNMW7jT7RqIx0-jssyZP2Wgq)
 - [kafka java demo](http://wandejun1012.iteye.com/blog/2310349)
+- [入门](http://www.cnblogs.com/likehua/p/3999538.html)
+- [Kafka Introduction](http://kafka.apache.org/intro)
