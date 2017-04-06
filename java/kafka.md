@@ -57,50 +57,55 @@ start cmd /k "D:\kafka_2.10-0.10.2.0\bin\windows\zookeeper-server-start.bat D:\k
 start cmd /k "D:\kafka_2.10-0.10.2.0\bin\windows\kafka-server-start.bat D:\kafka_2.10-0.10.2.0\config\server.properties"
 ```
 
+## gradle 依赖
+
+```grovvy
+compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21'
+compile group: 'log4j', name: 'log4j', version: '1.2.17'
+compile group: 'org.apache.kafka', name: 'kafka-clients', version: '0.10.2.0'
+compile group: 'org.apache.kafka', name: 'kafka_2.10', version: '0.10.2.0'
+compile group: 'org.apache.kafka', name: 'kafka-streams', version: '0.10.2.0'
+```
+
 ## Producer
 
 ```java
-import kafka.javaapi.producer.Producer;
-import kafka.producer.KeyedMessage;
-import kafka.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.ProducerRecord;
 
 import java.util.Properties;
 
-public class KafkaProducer {
-
-    private  final Producer<String,String> producer;
-
+public class ProducerDemo {
     public final static String TOPIC="TEST-TOPIC";
 
-    private  KafkaProducer(){
+    public  static  void main(String[] args){
         Properties props=new Properties();
-        props.put("metadata.broker.list","127.0.0.1:9092");
-        props.put("serializer.class","kafka.serializer.StringEncoder");
-        props.put("key.serializer.class","kafka.serializer.StringEncoder");
-        props.put("request.required.acks","-1");
-        producer=new Producer<String, String>(new ProducerConfig(props)) ;
-    }
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,"127.0.0.1:9092");
+        props.put(ProducerConfig.ACKS_CONFIG, "all");
+        props.put(ProducerConfig.RETRIES_CONFIG, 0);
+        props.put(ProducerConfig.BATCH_SIZE_CONFIG, 16384);
+        props.put(ProducerConfig.LINGER_MS_CONFIG, 1);
+        props.put(ProducerConfig.BUFFER_MEMORY_CONFIG, 33554432);
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
+        KafkaProducer<String,String> producer=new KafkaProducer<String, String>(props) ;
 
+        int messageCount = 0;
 
-    void produce(){
-        int messageNo=1000;
-        final int COUNT=10;
-        while(messageNo<COUNT){
+        while (messageCount < 10){
+            producer.send(new ProducerRecord<String, String>(TOPIC,
+                    String.format("key %d",messageCount),
+                    String.format("hello message %d",messageCount)));
+
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            String key=String.valueOf(messageNo);
-            String data="hello kafka message"+key;
-            producer.send(new KeyedMessage<String,String>(TOPIC,key,data));
-            System.out.println(data);
-            messageNo++;
-        }
-    }
 
-    public  static  void main(String[] args){
-        new KafkaProducer().produce();
+            messageCount ++;
+        }
     }
 
 }
@@ -109,62 +114,37 @@ public class KafkaProducer {
 ## Consumer
 
 ```java
-import kafka.consumer.ConsumerConfig;
-import kafka.consumer.ConsumerIterator;
-import kafka.consumer.KafkaStream;
-import kafka.javaapi.consumer.ConsumerConnector;
-import kafka.serializer.StringDecoder;
-import kafka.utils.VerifiableProperties;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Properties;
 
-public class KafkaConsumer {
-
-
-    private  final ConsumerConnector consumer;
-
+public class ConsumerDemo {
     public final static String TOPIC="TEST-TOPIC";
-
-    private KafkaConsumer(){
-        Properties props=new Properties();
-        props.put("zookeeper.connect","127.0.0.1:2181");
-        props.put("group.id","jd-group");//消费组是什么概念？
-
-        props.put("zookeeper.session.timeout.ms","60000");
-        props.put("zookeeper.sync.time.ms","200");
-        props.put("auto.commit.interval.ms","1000");
-        props.put("auto.offset.reset","smallest");
-
-        props.put("serializer.class","kafka.serializer.StringEncoder");
-
-        ConsumerConfig config=new ConsumerConfig(props);
-
-        consumer=kafka.consumer.Consumer.createJavaConsumerConnector(config);
-    }
-
-
-    void consume(){
-        Map<String,Integer> topicCountMap=new HashMap<String, Integer>();
-        topicCountMap.put(KafkaConsumer.TOPIC,new Integer(1));
-        StringDecoder keyDecoder=new StringDecoder(new VerifiableProperties());
-        StringDecoder valueDecoder=new StringDecoder(new VerifiableProperties());
-
-        Map<String,List<KafkaStream<String,String>>> consumerMap=
-                consumer.createMessageStreams(topicCountMap,keyDecoder,valueDecoder);
-
-        KafkaStream<String,String> stream=consumerMap.get(KafkaConsumer.TOPIC).get(0);
-        ConsumerIterator<String,String> it=stream.iterator();
-        while(it.hasNext()){
-            System.out.println(it.next().message());
-        }
-    }
-
-
     public  static  void main(String[] args){
-        new KafkaConsumer().consume();
+        Properties props = new Properties();
+
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, "test");
+        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "true");
+        props.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "1000");
+        props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "30000");
+        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringDeserializer");
+
+        KafkaConsumer<String,String> consumer = new KafkaConsumer<>(props);
+        consumer.subscribe(Collections.singletonList(TOPIC));
+
+        while (true){
+            ConsumerRecords<String,String> records = consumer.poll(100L);
+            for (ConsumerRecord<String,String> record:records){
+                System.out.printf("offset = %d, key = %s, value = %s", record.offset(), record.key(), record.value());
+            }
+        }
     }
 
 }
@@ -172,9 +152,48 @@ public class KafkaConsumer {
 
 **运行程序之前，先启动 kafka。**
 
+## stream
+### 两种类型
+- KStream
+> 在一个流中(KStream)，每个key-value是一个独立的信息片断，比如，用户购买流是：alice->黄油，bob->面包，alice->奶酪面包，我们知道alice既买了黄油，又买了奶酪面包。
+
+- KTable
+> 对于一个表table( KTable)，是代表一个变化日志，如果表包含两对同样key的key-value值，后者会覆盖前面的记录，因为key值一样的，比如用户地址表：alice -> 纽约, bob -> 旧金山, alice -> 芝加哥，意味着Alice从纽约迁移到芝加哥，而不是同时居住在两个地方。
+
+```java
+public static void main(String[] args){
+    Map<String, Object> props = new HashMap<>();
+    props.put(StreamsConfig.APPLICATION_ID_CONFIG, "jd_group");
+    props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+    props.put(StreamsConfig.KEY_SERDE_CLASS_CONFIG,Serdes.String().getClass());
+    props.put(StreamsConfig.VALUE_SERDE_CLASS_CONFIG,Serdes.String().getClass());
+
+    StreamsConfig config = new StreamsConfig(props);
+
+    KStreamBuilder builder = new KStreamBuilder();
+
+    KStream<String,String> kStream = builder.stream("topic1");
+    kStream.mapValues(new ValueMapper<String, String>() {
+        @Override
+        public String apply(String value) {
+            return value==null?"0":value.length()+"";
+        }
+    })
+    .to("TEST-TOPIC");
+
+    KafkaStreams streams = new KafkaStreams(builder, config);
+
+    streams.start();
+
+}
+```
+
+上面的 KStream 消费一个 topic1 的一条记录，将记录的文本长度发送到 TEST-TOPIC 。
+
 ## 参考链接
 - [百度百科](http://baike.baidu.com/link?url=swNHcRq-sjnH9FbPm3cmYTl0KZ8fGPkr6YTk7pxenXm8KRBb2Pxje
 TiBgIaHL0MNMW7jT7RqIx0-jssyZP2Wgq)
 - [kafka java demo](http://wandejun1012.iteye.com/blog/2310349)
 - [入门](http://www.cnblogs.com/likehua/p/3999538.html)
 - [Kafka Introduction](http://kafka.apache.org/intro)
+- [KafkaStream简介](http://www.tuicool.com/articles/yMbmY3e)
