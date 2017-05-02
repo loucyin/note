@@ -195,6 +195,14 @@ BaseBean permissionBean = session.selectOne("BeanMapper.selectPermission",1);
 System.out.println(permissionBean);
 ```
 
+## 数据库下划线命名转驼峰命名
+```xml
+<settings>
+    <setting name="mapUnderscoreToCamelCase" value="true"/>
+</settings>
+```
+
 ## 参考链接
 - [MyBatis 官方文档](http://www.mybatis.org/mybatis-3/zh/index.html)
 - [Mybatis的ResultMap的使用](http://www.cnblogs.com/rollenholt/p/3365866.html)
+- [Settings](http://www.mybatis.org/mybatis-3/zh/configuration.html#settings)

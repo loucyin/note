@@ -222,7 +222,7 @@ public class UserServiceImpl implements UserService{
 
 ## Mapper
 
-UserMapper 需要使用 `@Repository` 注册组件。 
+UserMapper 需要使用 `@Repository` 注册组件。
 
 ```java
 import org.apache.ibatis.annotations.Insert;
@@ -245,6 +245,32 @@ public interface UserMapper {
 和 xml 注入方式不同，不需要 `@ImportResource("beans.xml")` ；但是需要使用 `@MapperScan("com.lcy.demo.crud")` 扫描 UserMapper 所在的包。
 
 在需要注入的地方使用 `@Autowired`。
+
+## 使用 mybatis 的配置文件
+mybatis/config.xml
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <typeAliases>
+        <package name="com.gosun.daily.report"/>
+    </typeAliases>
+</configuration>
+```
+spring sqlSessionFactory
+```xml
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="dataSource"/>
+    <property name="typeAliasesPackage" value="com.gosun.daily.report.mapper"/>
+    <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+    <property name="configLocation" value="classpath:mybatis/config.xml"/>
+</bean>
+```
 
 
 ## 参考链接
