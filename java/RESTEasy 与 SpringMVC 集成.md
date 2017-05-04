@@ -79,6 +79,64 @@ public class UserController {
 }
 ```
 
+## spring mvc date json format
+- CustomObjectMapper
+```java
+public class CustomObjectMapper extends ObjectMapper {
+    private static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public CustomObjectMapper() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(DEFAULT_DATE_FORMAT);
+        setDateFormat(dateFormat);
+    }
+}
+```
+- 配置 mvc:annotation-driven
+```xml
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <bean id="customObjectMapper" class="com.gosun.daily.report.provider.CustomObjectMapper"/>
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper" ref="customObjectMapper"/>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+</beans>
+```
+
+## spring mvc 配置 date json 格式
+JacksonConfig
+```java
+public class JacksonConfig implements ContextResolver<ObjectMapper> {
+    private  final ObjectMapper mapper = new ObjectMapper();
+
+    public JacksonConfig() {
+        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,false);
+        mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
+    }
+
+    @Override
+    public ObjectMapper getContext(Class<?> aClass) {
+        return mapper;
+    }
+}
+```
+
+## 配置 resteasy.providers
+```xml
+<bean id="resteasy.providers" class="com.gosun.daily.report.provider.JacksonConfig"/>
+```
+
+
 ## 参考链接
 - [resteasy-springMVC example](https://github.com/resteasy/Resteasy/tree/3.0.4.Final/jaxrs/examples/resteasy-springMVC)
 - [SpringFramework4系列之整合Resteasy](https://my.oschina.net/u/1041012/blog/481135)

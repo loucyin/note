@@ -67,5 +67,62 @@ public static void main(String[] args) {
 }
 ```
 
+## 自定义代码生成器
+Mybatis generator 可以通过配置context 节点下的 plugin ，自定义代码生成。
+```xml
+<plugin type="com.gosun.isap.generator.MyPlugin"/>
+```
+MyPlugin
+在 UserMapper.java 文件中添加一个接口：
+```java
+List<User> selectAll();
+```
+在 UserMapper.xml 文件中添加：
+```
+<select id="selectAll" resultType="com.demo.User">
+  select * from User
+</select>
+```
+
+```java
+public class MyPlugin extends PluginAdapter{
+
+    @Override
+    public boolean clientGenerated(Interface interfaze, TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+        // 添加方法
+        Method method = new Method("selectAll");
+        FullyQualifiedJavaType returnType = new FullyQualifiedJavaType("java.util.List<"+introspectedTable.getBaseRecordType()+">");
+        method.setReturnType(returnType);
+        interfaze.addMethod(method);
+
+        // 添加 import
+        interfaze.addImportedTypes(new FullyQualifiedJavaType("java.util.List"));
+
+        return super.clientGenerated(interfaze, topLevelClass, introspectedTable);
+    }
+
+    @Override
+    public boolean sqlMapDocumentGenerated(Document document, IntrospectedTable introspectedTable) {
+        XmlElement parentElement = document.getRootElement();
+
+        // 添加 xml 节点
+        XmlElement xmlElement = new XmlElement("select");
+        xmlElement.addAttribute(new Attribute("id","selectAll"));
+        xmlElement.addAttribute(new Attribute("resultType",introspectedTable.getBaseRecordType()));
+        xmlElement.addAttribute(new TextElement("select * from "+introspectedTable.getFullyQualifiedTableNameAtRuntime()));
+        parentElement.addElement(xmlElement);
+
+        return super.sqlMapDocumentGenerated(document, introspectedTable);
+    }
+
+    @Override
+    public boolean validate(List<String> warnings) {
+        return true;
+    }
+}
+```
+
+
 ## 参考链接
 - [官方文档](http://www.mybatis.org/generator/)
+- [mybatis自定义代码生成器（Generator）](http://blog.csdn.net/yangchao13341408947/article/details/52510766)
