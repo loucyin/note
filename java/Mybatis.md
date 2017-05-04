@@ -202,7 +202,38 @@ System.out.println(permissionBean);
 </settings>
 ```
 
+##  参数传递
+### 通过注解
+```java
+Integer countByAge(@Param("isBoy") boolean isBoy, @Param("list") List<Integer> list);
+```
+```xml
+<select id="countByAge" resultType="int">
+    select count(*) from user where is_boy=${isBoy} and age in
+    <foreach collection="list" item="age" open="(" close=")" separator="," index="index">
+        #{age}
+    </foreach>
+</select>
+```
+通过注解传递参数的名称。
+
+### 通过参数顺序
+```java
+Integer countByAge(boolean isBoy, List<Integer> list);
+```
+```xml
+<select id="countByAge" resultType="int">
+    select count(*) from user where is_boy=${arg0} and age in
+    <foreach collection="arg1" item="age" open="(" close=")" separator="," index="index">
+        #{age}
+    </foreach>
+</select>
+```
+- 参数 isBoy 按顺序对应 arg0 可以使用 ${0},${arg0},#{0},#{arg0} 的形式；
+- 参数 list 对应 arg1 ，由于要在 foreach 中使用，只能使用 arg1 这种形式。
+
 ## 参考链接
 - [MyBatis 官方文档](http://www.mybatis.org/mybatis-3/zh/index.html)
 - [Mybatis的ResultMap的使用](http://www.cnblogs.com/rollenholt/p/3365866.html)
 - [Settings](http://www.mybatis.org/mybatis-3/zh/configuration.html#settings)
+- [Mybatis传多个参数（三种解决方案）](http://www.2cto.com/database/201409/338155.html)
