@@ -1,5 +1,12 @@
 # mybatis generator
 
+## 依赖
+```groovy
+compile 'mysql:mysql-connector-java:5.1.40'
+compile 'org.mybatis:mybatis:3.4.2'
+compile group: 'org.mybatis.generator', name: 'mybatis-generator-core', version: '1.3.5'
+```
+
 ## config 文件
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>

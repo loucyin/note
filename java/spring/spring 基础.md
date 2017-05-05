@@ -80,6 +80,11 @@ global-session	| 该作用域将 bean 的定义限制为全局 HTTP 会话。只
 
 4 个注解功能等效，但是在命名上对功能做了区分。
 
+## autowire 配置
+```xml
+<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+```
+
 ## AOP
 AOP（Aspect Oriented Programming）
 
