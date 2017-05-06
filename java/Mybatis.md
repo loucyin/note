@@ -203,6 +203,7 @@ System.out.println(permissionBean);
 ```
 
 ##  参数传递
+
 ### 通过注解
 ```java
 Integer countByAge(@Param("isBoy") boolean isBoy, @Param("list") List<Integer> list);
@@ -231,6 +232,29 @@ Integer countByAge(boolean isBoy, List<Integer> list);
 ```
 - 参数 isBoy 按顺序对应 arg0 可以使用 ${0},${arg0},#{0},#{arg0} 的形式；
 - 参数 list 对应 arg1 ，由于要在 foreach 中使用，只能使用 arg1 这种形式。
+
+### 解析 map 集合
+
+map 为 Map 类型，index 代表 key ,item 代表 value 。
+
+```xml
+<select id="selectByColumns" resultMap="BaseResultMap">
+  select
+  <include refid="Base_Column_List" />
+  from user
+  <if test="map != null">
+      <where>
+          <foreach collection="map" index="column" item="value">
+              <if test="column != null">
+                   AND ${column} = #{value}
+              </if>
+          </foreach>
+      </where>
+  </if>
+</select>
+```
+
+**注意：where 节点下 AND 只能在语句开头，在语句结尾会出错。**
 
 ## 参考链接
 - [MyBatis 官方文档](http://www.mybatis.org/mybatis-3/zh/index.html)

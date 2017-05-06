@@ -129,7 +129,14 @@ public class MyPlugin extends PluginAdapter{
 }
 ```
 
+## 返回自增主键
+```xml
+<table tableName="rc_template">
+    <generatedKey column="ID" sqlStatement="MySql" identity="true"/>
+</table>
+```
 
 ## 参考链接
 - [官方文档](http://www.mybatis.org/generator/)
 - [mybatis自定义代码生成器（Generator）](http://blog.csdn.net/yangchao13341408947/article/details/52510766)
+- [Mybatis generator 添加记录时返回自增主键](http://blog.csdn.net/u011403655/article/details/50696341)
