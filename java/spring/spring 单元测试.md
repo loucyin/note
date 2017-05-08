@@ -37,7 +37,7 @@ compile group: 'org.springframework', name: 'spring-test', version: '4.3.8.RELEA
 </beans>
 ```
 
-## Test
+## 获取 ApplicationContext
 test 可以访问到 main 中的 resource 资源
 
 静态导包
@@ -54,5 +54,21 @@ public class ServiceTest {
         UserService userService = applicationContext.getBean(UserService.class);
         assertNotNull(userService);
     }
+}
+```
+
+## 注解
+
+通过 ContextConfiguration 可以配置 xml 文件的加载位置，可以通过 @Autowired 获取相应的对象。
+
+```java
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:beans.xml"})
+public abstract class BaseUnitTest {
+    @Autowired
+    protected ApplicationContext context;
+
+    @Test
+    public abstract void autoWiredTest();
 }
 ```

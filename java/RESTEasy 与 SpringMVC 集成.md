@@ -93,7 +93,6 @@ public class CustomObjectMapper extends ObjectMapper {
 - 配置 mvc:annotation-driven
 ```xml
 <?xml version = "1.0" encoding = "UTF-8"?>
-
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
