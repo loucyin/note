@@ -136,7 +136,45 @@ public class MyPlugin extends PluginAdapter{
 </table>
 ```
 
+## 加载自定义插件，生成 mapper 文件 sql 重复
+- 自定义一个插件：
+```java
+public class OverIsMergeablePlugin extends PluginAdapter {
+	@Override
+	public boolean validate(List<String> warnings) {
+		return true;
+	}
+
+	@Override
+	public boolean sqlMapGenerated(GeneratedXmlFile sqlMap, IntrospectedTable introspectedTable) {
+		try {
+			Field field = sqlMap.getClass().getDeclaredField("isMergeable");
+			field.setAccessible(true);
+			field.setBoolean(sqlMap, false);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+}
+```
+- 在配置文件中加入自定义插件
+- 设置 overwrite 为 true
+```java
+public static void main(String[] args) throws Exception {
+		List<String> warnings = new ArrayList<String>();
+		boolean overwrite = true;
+		ConfigurationParser cp = new ConfigurationParser(warnings);
+		Configuration config = cp.parseConfiguration(Main.class.getClassLoader().getResourceAsStream("generatorConfig.xml"));
+		DefaultShellCallback callback = new DefaultShellCallback(overwrite);
+		MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
+		myBatisGenerator.generate(null);
+		System.out.println("----ok----");
+	}
+```
+
 ## 参考链接
 - [官方文档](http://www.mybatis.org/generator/)
 - [mybatis自定义代码生成器（Generator）](http://blog.csdn.net/yangchao13341408947/article/details/52510766)
 - [Mybatis generator 添加记录时返回自增主键](http://blog.csdn.net/u011403655/article/details/50696341)
+- [Mybatis code generator1.3.4版本 XML 文件重新生成不会覆盖原文件](https://my.oschina.net/u/137785/blog/736372)

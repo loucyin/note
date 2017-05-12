@@ -271,6 +271,9 @@ spring sqlSessionFactory
     <property name="configLocation" value="classpath:mybatis/config.xml"/>
 </bean>
 ```
+mapperLocations 通配符:
+- `*` 任意字符
+- `**` 任意多级目录
 
 
 ## 参考链接
