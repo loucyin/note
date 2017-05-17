@@ -12,3 +12,11 @@
 ### 解决方法
 1. 使用 @Component("id") 标记
 2. 使用 @Qualifier("id") 配合 @Autowired 对象注入
+
+### xml 配置 Autowired
+```xml
+<!--配置 component 扫描 package-->
+<context:component-scan base-package="com.gosun.daily.report"/>
+<!--配置 Autowired-->
+<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
+```

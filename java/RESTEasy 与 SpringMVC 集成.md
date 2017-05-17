@@ -121,6 +121,8 @@ public class JacksonConfig implements ContextResolver<ObjectMapper> {
     public JacksonConfig() {
         mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,false);
         mapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd"));
+        // 设置为 null 的值不参加序列化
+        mapper.setSerializationInclusion(Include.NON_NULL);
     }
 
     @Override
@@ -135,7 +137,7 @@ public class JacksonConfig implements ContextResolver<ObjectMapper> {
 <bean id="resteasy.providers" class="com.gosun.daily.report.provider.JacksonConfig"/>
 ```
 
-
 ## 参考链接
 - [resteasy-springMVC example](https://github.com/resteasy/Resteasy/tree/3.0.4.Final/jaxrs/examples/resteasy-springMVC)
 - [SpringFramework4系列之整合Resteasy](https://my.oschina.net/u/1041012/blog/481135)
+- [jackson 实体转json 为NULL或者为空不参加序列化](http://www.cnblogs.com/yangy608/p/3936848.html)

@@ -39,7 +39,10 @@ compile group: 'org.mybatis.generator', name: 'mybatis-generator-core', version:
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
-        <table tableName="user" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false" enableUpdateByExample="false"/>
+        <table tableName="user" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
     </context>
 </generatorConfiguration>
 ```
