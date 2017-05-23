@@ -132,3 +132,21 @@ public Response getResource(@PathParam(ID) Long alertId, @QueryParam(TYPE) Byte 
     return builder.build();
 }
 ```
+
+## 操作 Response OutputStream
+
+- StreamingOutput 接口：
+```java
+package javax.ws.rs.core;
+public interface StreamingOutput {
+    void write(OutputStream var1) throws IOException, WebApplicationException;
+}
+```
+
+- 通过实现 StreamingOutput 接口，操作 Response 的 OutputStream。
+- 通过 Response.ResponseBuilder 构建 Response
+```java
+Response.ok(output,output.getMediaType())
+               .header(ExcelStreamingOutput.CONTENT_DISPOSITION,output.getContentDisposition())
+               .build();
+```

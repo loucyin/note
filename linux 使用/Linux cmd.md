@@ -31,6 +31,11 @@ free -m
   df -l
   df -lh
   ```
+- 查看 cpu
+
+```
+lscpu
+```
 
 ## 修改环境变量后使其马上生效
 
@@ -62,5 +67,6 @@ fg %1
 ## 参考链接
 
 - [linux 查看系统信息命令(比较全)](http://blog.csdn.net/lhf_tiger/article/details/7102753)
+- [Linux 查看系统硬件信息(实例详解)](http://www.cnblogs.com/ggjucheng/archive/2013/01/14/2859613.html)
 - [Linux man命令的使用方法](http://www.cnblogs.com/hnrainll/archive/2011/09/06/2168604.html)
 - [远程连接Linux，如何使程序断开连接后继续运行](http://blog.csdn.net/lyjcn/article/details/52780555)
