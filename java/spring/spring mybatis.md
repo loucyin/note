@@ -106,6 +106,9 @@ public interface UserService {
 </beans>
 ```
 
+注意：  
+**当不配置 mapperLocations 时，默认扫描与 mapper 接口同目录下的同名 xml 文件，如果没有，使用 mapper 时会报错。**
+
 ## Application
 
 通过 SpringBoot 启动程序。

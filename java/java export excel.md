@@ -84,5 +84,26 @@ public static void readWorkBook(String path) throws IOException, InvalidFormatEx
 }
 ```
 
+## 合并单元格
+```java
+CellRangeAddress address = new CellRangeAddress(start, end, columnNumber, columnNumber);
+sheet.addMergedRegion(address);
+```
+
+## 设置单元格边框、居中
+```java
+private void initCellStyle(CellStyle style){
+    if(style == null){
+        return;
+    }
+    style.setBorderBottom(BorderStyle.THIN);
+    style.setBorderLeft(BorderStyle.THIN);
+    style.setBorderTop(BorderStyle.THIN);
+    style.setBorderRight(BorderStyle.THIN);
+    style.setVerticalAlignment(VerticalAlignment.CENTER);
+    style.setAlignment(HorizontalAlignment.CENTER);
+}
+```
+
 ## 参考链接
 - [Java 实现导出excel表 POI](http://www.cnblogs.com/bmbm/archive/2011/12/08/2342261.html)
