@@ -137,6 +137,38 @@ public class JacksonConfig implements ContextResolver<ObjectMapper> {
 <bean id="resteasy.providers" class="com.gosun.daily.report.provider.JacksonConfig"/>
 ```
 
+## 404 Integer
+```
+@QueryParam(LIMIT) Integer limit
+```
+
+如果通过 url 传参时，不传 limit 没任何问题，如果 limit 传入的参数解析不到 Integer ，会报 404 错误。
+
+### 解决方式
+
+- 实现 StringParameterUnmarshaller<Integer> 接口
+```java
+public class IntegerConverter implements StringParameterUnmarshaller<Integer> {
+    @Override
+    public void setAnnotations(Annotation[] annotations) {
+
+    }
+
+    @Override
+    public Integer fromString(String s) {
+        Integer integer = null;
+        try {
+            integer = Integer.parseInt(s);
+        } catch (NumberFormatException ignored) {
+        }
+        return integer;
+    }
+}
+```
+
+- 将 IntegerConverter 配置为 resteasy.providers
+
+
 ## 参考链接
 - [resteasy-springMVC example](https://github.com/resteasy/Resteasy/tree/3.0.4.Final/jaxrs/examples/resteasy-springMVC)
 - [SpringFramework4系列之整合Resteasy](https://my.oschina.net/u/1041012/blog/481135)

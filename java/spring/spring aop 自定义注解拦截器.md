@@ -1,4 +1,4 @@
-# spring 自定义注解拦截器
+# spring aop 自定义注解拦截器
 
 ## 方法级拦截器
 ### 注解接口
@@ -61,12 +61,7 @@ public @interface CheckPermission {
 @Aspect
 public class CheckPermissionAspect {
 
-    @Pointcut("@annotation(com.lcy.demo.aop.CheckPermission) || @within(com.lcy.demo.aop.CheckPermission)")
-    public void methodAspect(){
-
-    }
-
-    @Around("methodAspect()")
+    @Around("@annotation(com.lcy.demo.aop.CheckPermission) || @within(com.lcy.demo.aop.CheckPermission)")
     public Object doBefore(ProceedingJoinPoint joinPoint) throws Throwable {
         System.out.println(joinPoint.getSignature().getName());
         Object[] args = joinPoint.getArgs();
@@ -81,13 +76,7 @@ public class CheckPermissionAspect {
 @Component
 @Aspect
 public class CheckPermissionAspect {
-
-    @Pointcut("@annotation(com.lcy.demo.aop.CheckPermission) || @within(com.lcy.demo.aop.CheckPermission) && @annotation(checkPermission)")
-    public void methodAspect(){
-
-    }
-
-    @Around("methodAspect()")
+    @Around("@annotation(com.lcy.demo.aop.CheckPermission) || @within(com.lcy.demo.aop.CheckPermission) && @annotation(checkPermission)")
     public Object doBefore(ProceedingJoinPoint joinPoint) throws Throwable {
         System.out.println(joinPoint.getSignature().getName());
         Object[] args = joinPoint.getArgs();
