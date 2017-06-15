@@ -72,3 +72,14 @@ public abstract class BaseUnitTest {
     public abstract void autoWiredTest();
 }
 ```
+
+## spring testng
+
+```java
+@Test
+@ContextConfiguration(locations = {"classpath:META-INF/spring/beans.xml"})
+public class BaseNgTest extends AbstractTestNGSpringContextTests{
+
+}
+```
+使用 testng 框架需要继承 spring test 的 AbstractTestNGSpringContextTests 类。
