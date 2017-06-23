@@ -132,8 +132,8 @@ left join sccx.area c on a.endCity = c.ID
 使用 update 或者 delete 语句时产生的错误。
 
 ```
-Error Code: 1175\. You are using safe update mode and you tried to update a table without   
-a WHERE that uses a KEY column To disable safe mode, toggle the option in Preferences ->  
+Error Code: 1175\. You are using safe update mode and you tried to update a table without
+a WHERE that uses a KEY column To disable safe mode, toggle the option in Preferences ->
 SQL Editor and reconnect.
 ```
 
@@ -176,6 +176,44 @@ SELECT * FROM h_bfzzr WHERE NOT (jtrk REGEXP "[u0391-uFFE5]");
 ```sql
 SELECT * FROM h_bfzzr WHERE  (zrrdw REGEXP '^[0-9]*$');
 ```
+
+## 存储过程
+### 背景：
+
+表 t_department 有个字段 parent 存放父 id，parent_ids 存放完整的 parent id，没有 parent 的 parent = id，因为 parent_ids 是后加入的字段，需要全部更新。
+
+### 解决方法
+
+- 现将 parent = id 的 parent_ids 赋值为 id;
+- 将 parent = id 的子项的 parent_ids 赋值为子项的 parent;
+- 将 parent != id 的子项的 parent_ids 赋值为父项的 parent_ids +','+ 父项的 id；
+- SQL 执行一次不一定能全部更新完毕，取 row_count() ，直到 row_count() 为 0，不在继续执行。
+
+```sql
+delimiter $$
+create procedure update_department_parent_ids()
+begin
+set @a = 1;
+while @a > 0 do
+update (select * from isap.t_department where id = parent) as B
+left join
+isap.t_department A
+on A.parent = B.id 
+set  A.parent_ids = A.parent;
+SET SQL_SAFE_UPDATES = 0;
+update (select * from isap.t_department where id != parent) as B
+left join
+isap.t_department A
+on A.parent = B.id
+set A.parent_ids = concat(B.parent_ids,',',B.id);
+set @a = (select row_count());
+end while;
+end $$ delimiter ;
+call update_department_parent_ids();
+drop procedure update_department_parent_ids;
+```
+
+
 
 ## 参考链接
 
