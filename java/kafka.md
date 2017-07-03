@@ -190,6 +190,10 @@ public static void main(String[] args){
 
 上面的 KStream 消费一个 topic1 的一条记录，将记录的文本长度发送到 TEST-TOPIC 。
 
+## 笔记
+- kafka 集群可以通过配置保留期限保留所有发布的记录，不管是否被消费
+- 每条记录都会有一个偏移量，偏移量由消费者控制，通常消费者读取记录时线性提高祁偏移量；消费者也可以通过控制偏移量消费之前的记录
+
 ## 参考链接
 - [百度百科](http://baike.baidu.com/link?url=swNHcRq-sjnH9FbPm3cmYTl0KZ8fGPkr6YTk7pxenXm8KRBb2Pxje
 TiBgIaHL0MNMW7jT7RqIx0-jssyZP2Wgq)
