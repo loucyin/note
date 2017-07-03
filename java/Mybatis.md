@@ -2,6 +2,8 @@
 
 ## 配置文件
 
+**Mybatis 的映射配置文件里面的元素是有序的，必须按指定的顺序排列。**
+
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration
@@ -35,30 +37,36 @@
 **注意的问题**
 
 ### 配置文件中 configration 的子节点是有顺序要求的。
+
 1. properties 属性
-- settings 设置
-- typeAliases 类型命名
-- typeHandlers 类型处理器
-- objectFactory 对象工厂
-- plugins 插件
-- environments 环境
-- environment 环境变量
-- transactionManager 事务管理器
-- dataSource 数据源
-- databaseIdProvider 数据库厂商标识
-- mappers 映射器
+2. settings 设置
+3. typeAliases 类型命名
+4. typeHandlers 类型处理器
+5. objectFactory 对象工厂
+6. plugins 插件
+7. environments 环境
+8. environment 环境变量
+9. transactionManager 事务管理器
+10. dataSource 数据源
+11. databaseIdProvider 数据库厂商标识
+12. mappers 映射器
 
 ### resource 属性
+
 resource 属性设置的是文件路径，以 classpath 为根目录的路径，不能使用 `com.demo.Mapper.xml` 的形式，要使用 `com/demo/Mapper.xml`的形式。
 
 ### 配置 properties 的读取顺序
+
 > 如果属性在不只一个地方进行了配置，那么 MyBatis 将按照下面的顺序来加载：
-- 在 properties 元素体内指定的属性首先被读取。
-- 然后根据 properties 元素中的 resource 属性读取类路径下属性文件或根据 url 属性指定的路径读取属性文件，并覆盖已读取的同名属性。
-- 最后读取作为方法参数传递的属性，并覆盖已读取的同名属性。
+
+> - 在 properties 元素体内指定的属性首先被读取。
+> - 然后根据 properties 元素中的 resource 属性读取类路径下属性文件或根据 url 属性指定的路径读取属性文件，并覆盖已读取的同名属性。
+> - 最后读取作为方法参数传递的属性，并覆盖已读取的同名属性。
 
 ## SQL 文件
+
 创建 UserMapper.xml，UserMapper.xml 相当于生成了 UserMapper.class ,namespace 相当于 UserMapper 的包路径。
+
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
@@ -72,6 +80,7 @@ resource 属性设置的是文件路径，以 classpath 为根目录的路径，
 ```
 
 ## 使用
+
 - 通过 config.xml 初始化 SqlSessionFactory
 - 通过 SqlSessionFactory 获取到 SqlSession
 - 通过 SqlSession 根据命名空间加方法名获取到可执行 sql 的结果
@@ -109,30 +118,35 @@ public static void main(String[] args) {
 ## 通过注解的形式创建 Mapper
 
 - PermissionMapper.java
-```java
-public interface PermissionMapper {
+
+  ```java
+  public interface PermissionMapper {
     @Select("select * from permission where id = #{id}")
     Permission selectPermission(int id);
-}
-```
+  }
+  ```
+
 - 在 config.xml 中配置 Mapper
-```xml
-<mapper class="com.lcy.demo.PermissionMapper"/>
-```
+
+  ```xml
+  <mapper class="com.lcy.demo.PermissionMapper"/>
+  ```
 
 - 使用 PermissionMapper
-```java
-PermissionMapper mapper = session.getMapper(PermissionMapper.class);
-Permission permission = mapper.selectPermission(1);
-System.out.println(permission);
-```
+
+  ```java
+  PermissionMapper mapper = session.getMapper(PermissionMapper.class);
+  Permission permission = mapper.selectPermission(1);
+  System.out.println(permission);
+  ```
 
 ### 注解的优势：
 
 > - 首先它不是基于字符串常量的，就会更安全；
-- 其次，如果你的 IDE 有代码补全功能，那么你可以在有了已映射 SQL 语句的基础之上利用这个功能。
+> - 其次，如果你的 IDE 有代码补全功能，那么你可以在有了已映射 SQL 语句的基础之上利用这个功能。
 
 ### 注解的不足：
+
 > 对于简单语句来说，注解使代码显得更加简洁，然而 Java 注解对于稍微复杂的语句就会力不从心并且会显得更加混乱。因此，如果你需要做很复杂的事情，那么最好使用 XML 来映射语句。
 
 ## mapper 文件中的 resultType and resultMap 属性
@@ -150,33 +164,36 @@ System.out.println(permission);
 #### 简单用法
 
 - BaseBean
-```java
-public class BaseBean {
+
+  ```java
+  public class BaseBean {
     private Integer id;
     private String name;
-}
-```
+  }
+  ```
 
 - Permission
-```java
-public class Permission {
+
+  ```java
+  public class Permission {
     private Integer id;
     private String name;
     private String description;
-}
-```
+  }
+  ```
 
 - 需求
 
   将从数据库读出来的 Permission 映射成 BaseBean，但是 BaseBean 的 name 要对应 Permission 的 description。
 
 - BeanMapper.xml
-```xml
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper
+
+  ```xml
+  <?xml version="1.0" encoding="UTF-8" ?>
+  <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="BeanMapper">
+  <mapper namespace="BeanMapper">
 
     <resultMap id="PermissionBean" type="BaseBean">
         <id property="id" column="id"/>
@@ -186,28 +203,32 @@ public class Permission {
     <select id="selectPermission" resultMap="PermissionBean">
         select id,description from permission where id = #{id};
     </select>
-</mapper>
-```
+  </mapper>
+  ```
 
 - 使用
-```java
-BaseBean permissionBean = session.selectOne("BeanMapper.selectPermission",1);
-System.out.println(permissionBean);
-```
+
+  ```java
+  BaseBean permissionBean = session.selectOne("BeanMapper.selectPermission",1);
+  System.out.println(permissionBean);
+  ```
 
 ## 数据库下划线命名转驼峰命名
+
 ```xml
 <settings>
     <setting name="mapUnderscoreToCamelCase" value="true"/>
 </settings>
 ```
 
-##  参数传递
+## 参数传递
 
 ### 通过注解
+
 ```java
 Integer countByAge(@Param("isBoy") boolean isBoy, @Param("list") List<Integer> list);
 ```
+
 ```xml
 <select id="countByAge" resultType="int">
     select count(*) from user where is_boy=${isBoy} and age in
@@ -216,12 +237,15 @@ Integer countByAge(@Param("isBoy") boolean isBoy, @Param("list") List<Integer> l
     </foreach>
 </select>
 ```
+
 通过注解传递参数的名称。
 
 ### 通过参数顺序
+
 ```java
 Integer countByAge(boolean isBoy, List<Integer> list);
 ```
+
 ```xml
 <select id="countByAge" resultType="int">
     select count(*) from user where is_boy=${arg0} and age in
@@ -230,6 +254,7 @@ Integer countByAge(boolean isBoy, List<Integer> list);
     </foreach>
 </select>
 ```
+
 - 参数 isBoy 按顺序对应 arg0 可以使用 ${0},${arg0},#{0},#{arg0} 的形式；
 - 参数 list 对应 arg1 ，由于要在 foreach 中使用，只能使用 arg1 这种形式。
 
@@ -257,6 +282,8 @@ map 为 Map 类型，index 代表 key ,item 代表 value 。
 **注意：where 节点下 AND 只能在语句开头，在语句结尾会出错。**
 
 ## 参考链接
+
+- [XML 映射配置文件](http://www.mybatis.org/mybatis-3/zh/configuration.html)
 - [MyBatis 官方文档](http://www.mybatis.org/mybatis-3/zh/index.html)
 - [Mybatis的ResultMap的使用](http://www.cnblogs.com/rollenholt/p/3365866.html)
 - [Settings](http://www.mybatis.org/mybatis-3/zh/configuration.html#settings)
