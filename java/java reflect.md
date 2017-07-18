@@ -29,3 +29,4 @@ T t = constructor.newInstance("hello");
 
 ## 参考链接
 - [Java 运行时如何获取泛型参数的类型](https://unmi.cc/java-how-to-get-generic-type/)
+- [Create instance of generic type in Java?](https://stackoverflow.com/questions/75175/create-instance-of-generic-type-in-java)
