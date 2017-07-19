@@ -79,6 +79,6 @@ service Foo {
 
 **Google 提供了一个基于 Protocol Buffers 与 http2 的 rpc 框架 [grpc](https://grpc.io/docs/)。**
 
-## 参考网站
+## 参考链接
 - [Protocol Buffers](https://developers.google.com/protocol-buffers/)
 - [java-generated#service](https://developers.google.com/protocol-buffers/docs/reference/java-generated#service)
