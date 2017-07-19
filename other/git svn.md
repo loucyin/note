@@ -37,7 +37,7 @@ git svn rebase
 git svn dcommit
 ```
 
-**最好不要在 master 分支修改代码，合并冲突是一件很烦人的事情**
+**最好不要在 master 分支修改代码，防止 master 分支与主线冲突，合并冲突是一件很烦人的事情**
 
 ## 参考链接
 - [GitSvnSwitch](https://git.wiki.kernel.org/index.php/GitSvnSwitch)
