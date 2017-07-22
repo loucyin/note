@@ -40,6 +40,7 @@ apiGroup + apiName 可以用于定位 api 在 html 中的位置，规则如下�
 ## apidoc 规范
 
 - 必须的信息
+
 参数|所属 params|描述
 :---|:---|
 method|@api|请求方式
@@ -69,7 +70,7 @@ group|@apiGroup|英文，大驼峰命名
 - apiParam apiSuccess 中数组类型使用类型+[] 命名
 
 - 使用 get 方式请求的 api 提供 url 示例
-- post、put、delete 一般不要使用 url 传参（可以使用 url 路径参数），传递参数时描述中需要有数据的 Content-Type，并提供传入数据格式的示例，from 表单要提供表单示例
+- post、put、delete 一般不要使用 url 传参（可以使用 url 路径参数，业务简单参数少于 2 个可以考虑 url 传参），传递参数时描述中需要有数据的 Content-Type，并提供传入数据格式的示例，from 表单要提供表单示例
 
 ## 参考链接
 - [apidoc-install](http://apidocjs.com/#install)
