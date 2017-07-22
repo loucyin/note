@@ -108,12 +108,7 @@ protobuf {
 ```groovy
 idea {
     module {
-        sourceDirs += file("$projectDir/build/generated/source/proto/main/java");
-    }
-}
-eclipse {
-    project {
-        sourceDirs += file("$projectDir/build/generated/source/proto/main/java");
+        sourceDirs += file("$projectDir/build/generated/source/proto/main");
     }
 }
 ```
@@ -186,14 +181,10 @@ protobuf {
 // 将自动生成的代码加入到 source 中
 idea {
     module {
-        sourceDirs += file("$projectDir/build/generated/source/proto/main/java");
+        sourceDirs += file("$projectDir/build/generated/source/proto/main");
     }
 }
-eclipse {
-    project {
-        sourceDirs += file("$projectDir/build/generated/source/proto/main/java");
-    }
-}
+
 // 设置字符集
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
