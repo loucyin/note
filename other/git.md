@@ -134,6 +134,17 @@
 git archive --format zip --output file.zip master
 ```
 
+## Git checkout
+- 从当前版本拉一个分支，没有提交历史
+```
+git checkout --orphan latest
+```
+
+- 合并两个版本库的代码，版本库有不同的提交历史
+```
+git merge other --allow-unrelated-histories
+```
+
 ## 参考链接：
 
 - [知乎 clone 和 pull 的区别](https://www.zhihu.com/question/39595933)
