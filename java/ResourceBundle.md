@@ -11,7 +11,7 @@
 
 ## 乱码的中文
 
-- 在 resources 下新建一个 string.properties 、string_zh_CN.properties
+- 在 resources 下新建一个 string.properties 、string_zh_CN.properties，文件的编码方式需要为 utf-8 。
 - 通过下面的代码 :
 
   ```java
@@ -46,6 +46,13 @@ public static String changeCoding(String str){
     }
     return string;
 }
+```
+
+## Property 转码姿势
+
+```java
+Properties properties = new Properties();
+properties.load(new InputStreamReader(ResourceTest.class.getClassLoader().getResourceAsStream("string.properties"),"utf-8"));
 ```
 
 ## 神奇的大坑
