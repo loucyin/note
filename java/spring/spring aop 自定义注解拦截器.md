@@ -77,7 +77,7 @@ public class CheckPermissionAspect {
 @Aspect
 public class CheckPermissionAspect {
     @Around("@annotation(com.lcy.demo.aop.CheckPermission) || @within(com.lcy.demo.aop.CheckPermission) && @annotation(checkPermission)")
-    public Object doBefore(ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object doBefore(ProceedingJoinPoint joinPoint,CheckPermission checkPermission) throws Throwable {
         System.out.println(joinPoint.getSignature().getName());
         Object[] args = joinPoint.getArgs();
         System.out.println(Arrays.asList(args));
@@ -88,3 +88,4 @@ public class CheckPermissionAspect {
 
 ## 参考链接
 - [@AspectJ pointcut for all methods of a class with specific annotation](https://stackoverflow.com/questions/2011089/aspectj-pointcut-for-all-methods-of-a-class-with-specific-annotation)
+- [Spring AOP,AspectJ, CGLIB 有点晕](http://www.jianshu.com/p/fe8d1e8bd63e)

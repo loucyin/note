@@ -332,6 +332,16 @@ jar {
 }
 ```
 
+## gradle 不支持 tool.jar
+
+添加依赖
+```groovy
+def jdkHome = System.getenv("JAVA_HOME")
+dependencies {
+    compile files("$jdkHome/lib/tools.jar")
+}
+```
+
 ## 参考链接
 
 - [百度百科 gradle](http://baike.baidu.com/link?url=irOH1pxXeqYPRZ7pofxDiBZ7I37nvpzzS75qfkXYQ3FRGuUQE5BhZ11xRzwou2q7Pi9K525JkZPhwaV9Fai8PK)

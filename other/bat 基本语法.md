@@ -15,7 +15,7 @@ echo str1=%str1%
 ## 拼接字符串
 
 ```
-set str1=This is string1  
+set str1=This is string1
 set str2=This is string2
 
 set str3==%str1%%str2%
@@ -101,12 +101,12 @@ pause
 ### 条件后执行多条命令
 
 ```
-if exist 1.txt (  
-    echo yes  
-    echo 1  
-    echo 2  
-    echo 3) else (  
-    echo no  
+if exist 1.txt (
+    echo yes
+    echo 1
+    echo 2
+    echo 3) else (
+    echo no
 )
 ```
 
@@ -119,9 +119,9 @@ if not exist hh.txt echo hh.txt not exit
 ### 结合 errorlevel 使用
 
 ```
-@ECHO OFF  
-XCOPY F:\test.bat D:\  
-IF ERRORLEVEL 1 ECHO 文件拷贝失败  
+@ECHO OFF
+XCOPY F:\test.bat D:\
+IF ERRORLEVEL 1 ECHO 文件拷贝失败
 IF ERRORLEVEL 0 ECHO 成功拷贝文件
 ```
 
@@ -138,14 +138,14 @@ for命令可以带参数或不带参数，带参数时支持以下参数:/d /l /
 - ### 无参数
 
   ```
-  @echo off  
-  setlocal enabledelayedexpansion  
-  set /a v=0  
-  for %%i in (*.*) do (  
-  echo %%i  
-  echo -------!v!------  
-  set /a v+=1  
-  )  
+  @echo off
+  setlocal enabledelayedexpansion
+  set /a v=0
+  for %%i in (*.*) do (
+  echo %%i
+  echo -------!v!------
+  set /a v+=1
+  )
   pause
   ```
 
@@ -164,11 +164,11 @@ for命令可以带参数或不带参数，带参数时支持以下参数:/d /l /
   表示以增量形式从开始到结束的一个数字序列。可以使用负的 Step
 
   ```
-  for /l %%i in (1,1,5) do @echo %%i   --输出1 2 3 4 5    
-  for /l %%i in (1,2,10) do @echo %%i   --输出1,3，5,7，9    
-  for /l %%i in (100,-20,1) do @echo %%i   --输出100,80,60,40,20    
-  for /l %%i in (1,1,5) do start cmd   --打开5个CMD窗口    
-  for /l %%i in (1,1,5) do md %%i   --建立从1~5共5个文件夹    
+  for /l %%i in (1,1,5) do @echo %%i   --输出1 2 3 4 5
+  for /l %%i in (1,2,10) do @echo %%i   --输出1,3，5,7，9
+  for /l %%i in (100,-20,1) do @echo %%i   --输出100,80,60,40,20
+  for /l %%i in (1,1,5) do start cmd   --打开5个CMD窗口
+  for /l %%i in (1,1,5) do md %%i   --建立从1~5共5个文件夹
   for /l %%i in (1,1,5) do rd /q %%i   --删除从1~5共5个文件夹
   ```
 
@@ -224,31 +224,34 @@ atom 下安装插件比较慢，在 github 上下载压缩包，使用 npm 进�
 解压后文件夹有 -master 后缀
 
 ```
-@echo off   
+@echo off
 setlocal enabledelayedexpansion
-for /d %%i in (*-master) do (  
+for /d %%i in (*-master) do (
 set oldName=%%i
 set "newName=!oldName:~0,-7!"
 echo newName:!newName!
 ren %%i !newName!
-)  
+)
 pause
 ```
 
 ### 批量安装 atom 插件
 
 ```
-@echo off   
+@echo off
 set curDir=C:\Users\Administrator\.atom\packages
-for /d %%i in (*) do (  
+for /d %%i in (*) do (
 cd %curDir%
 cd %%i
 npm install
-apm link  
+apm link
 echo %curDir%%%i has installed
-)  
+)
 pause
 ```
+
+## 执行完后窗口关闭
+bat 文件执行完后，会自动关闭，如果不希望命令窗口关闭可以在结尾加上：`pause` 或者 `cmd /k`
 
 ## 参考连接
 
