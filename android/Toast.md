@@ -1,3 +1,5 @@
+# Toast
+
 ## Toast 不显示
 > Google把Toast视为系统级别的消息通知，并且在Android5.0之后在设置中就可以关闭app的消息权限
 

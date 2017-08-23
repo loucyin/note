@@ -1,18 +1,20 @@
-## 思路  
+# 图片压缩
+
+## 思路
 - 按比例缩小图片的像素
 - 降低图片的质量
-- 裁剪  
+- 裁剪
 
 ## 按比例缩小图片的像素
-- BitmapFactory.Options  
+- BitmapFactory.Options
   - 使用 inJustDecodeBounds 成员变量，可以在不加载 bitmap 的情况下，获取 bitmap 的信息。
-> If set to true, the decoder will return null (no bitmap), but the out... fields will still be set, allowing the caller to query the bitmap without having to allocate the memory for its pixels.  
+> If set to true, the decoder will return null (no bitmap), but the out... fields will still be set, allowing the caller to query the bitmap without having to allocate the memory for its pixels.
 
-  - 使用 inSampleSize 控制采样大小  
+  - 使用 inSampleSize 控制采样大小
   inSampleSize > 1 的时候，图片会被缩小为原来的 1/inSampleSize^2 ;inSampleSize <= 1 时，inSampleSize = 1。它无法精准的控制 bitmap 的尺寸。
-- Bitmap.createScaledBitmap()  
+- Bitmap.createScaledBitmap()
   可以通过 Bitmap.createScaledBitmap() 方法获取到想要的尺寸。
-- 达到按比例缩放的目的  
+- 达到按比例缩放的目的
   1. 计算出 inSampleSize 使读取到的图片尽量与需要的尺寸相近；
   2. 利用 Bitmap.createScaledBitmap() 方法，获取到需要的尺寸。
   3. 利用 Bitmap.compress() 方法，进行质量压缩。
@@ -115,7 +117,7 @@
   }
   ```
 
-## 参考链接  
-- [ Android图片压缩技巧](http://blog.csdn.net/fengyuzhengfan/article/details/41759835)  
-- [BitmapFactory.Options](http://developer.android.com/reference/android/graphics/BitmapFactory.Options.html#inJustDecodeBounds)  
-- [Android how to scale an image with BitmapFactory Options](http://stackoverflow.com/questions/9360976/android-how-to-scale-an-image-with-bitmapfactory-options)  
+## 参考链接
+- [ Android图片压缩技巧](http://blog.csdn.net/fengyuzhengfan/article/details/41759835)
+- [BitmapFactory.Options](http://developer.android.com/reference/android/graphics/BitmapFactory.Options.html#inJustDecodeBounds)
+- [Android how to scale an image with BitmapFactory Options](http://stackoverflow.com/questions/9360976/android-how-to-scale-an-image-with-bitmapfactory-options)

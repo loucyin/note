@@ -37,5 +37,7 @@ ClassLoader 采用的是`双亲委托模型`来搜索类的。
 1. 自底向上检查类是否已经加载
 2. 自顶向下尝试加载类
 
+TODO : 深入
+
 ## 参考链接
 - [ 深入分析Java ClassLoader原理](http://blog.csdn.net/xyang81/article/details/7292380)

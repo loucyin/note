@@ -1,3 +1,5 @@
+# java 文件操作
+
 ## 文件的基本操作
 ```java
 //创建文件
@@ -91,7 +93,7 @@ public static boolean writeStringToFile(String content, String fileName)
 			}
 		}
 ```
-## 获取图片的大小  
+## 获取图片的大小
 两种方式：一种是通过 ImageReader ，一种是通过 ImageIO ；ImageReader 根据文件名读取文件的信息，比较快速，但是当文件后缀与文件的实际类型不符时，会报异常，不支持 ICO 格式图片。ImageIO 是将文件读入，然后获取大小，比较耗时。
 ```java
 public static void main(String[] args)

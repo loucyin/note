@@ -1,3 +1,5 @@
+# TextView ImageGetter
+
 ## ImageGetter
 在 TextView 中显示 html ，需要使用 ImageGetter 解析 <img> 标签。
 ImageGetter 是一个接口，需要实现里面的方法。
@@ -39,7 +41,7 @@ MyImageGetter 有一个 TextView 成员，用于保存用于图片显示的 Text
 public MyImageGetter(TextView view)
 {
   mContainer = view;
-}  
+}
 @Override
 public Drawable getDrawable(String s)
 {
@@ -79,15 +81,15 @@ public Drawable getDrawable(String s)
   return drawable;
 }
 ```
-## 图片的大小和显示位置  
+## 图片的大小和显示位置
 - Drawable.setBounds(Rect) 方法
-> The setBounds(Rect) method must be called to tell the Drawable where it is drawn and how large it should be. All Drawables should respect the requested size, often simply by scaling their imagery. A client can find the preferred size for some Drawables with the getIntrinsicHeight() and getIntrinsicWidth() methods.  
+> The setBounds(Rect) method must be called to tell the Drawable where it is drawn and how large it should be. All Drawables should respect the requested size, often simply by scaling their imagery. A client can find the preferred size for some Drawables with the getIntrinsicHeight() and getIntrinsicWidth() methods.
 
   Drawable.setBounds(Rect) 用于设置绘图的位置，和绘图的区域。
 
 - Canvas.drawBitmap()
 bitmap 要通过 Drawable.draw(Canvas) 函数绘制，可以通过 Canvas.drawBitmap() 控制 bitmap 在Drawable 中的显示位置。
-- 控制图片居中显示  
+- 控制图片居中显示
 1. 首先获取 TextView 的宽度，减去 paddingLeft paddingRight 即为 Drawable 可用的显示宽度；
 2. 通过上面的两个方法配合，控制图片居中显示。
 ```java

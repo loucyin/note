@@ -115,6 +115,8 @@ consumer 配置文件 consumer.xml
 </beans>
 ```
 
+TODO : 深入
+
 ## 参考链接
 - [Dubbo项目demo搭建](http://www.cnblogs.com/fri-yu/p/5981436.html)
 - [Dubbo是什么](http://blog.csdn.net/ichsonx/article/details/39008519)

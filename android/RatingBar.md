@@ -1,13 +1,18 @@
+# 自定义 RatingBar 样式
+
 ## 可恶的星星
-谷歌给的默认样式太大，而且大小不可调。  
+谷歌给的默认样式太大，而且大小不可调。
 谷歌还给了两种样式:
 ```
 style="?android:attr/ratingBarStyleSmall"
 style="?android:attr/ratingBarStyleIndicator"
 ```
 samll 的样式太小，indicator 不能交互。
-## 使用自定义样式吧
+
+## 使用自定义样式
+
 通过指定 android:progressDrawable ，修改 RatingBar 的显示样式。
+
 ```xml
 <RatingBar
     android:layout_marginLeft="@dimen/text_padding"
@@ -20,6 +25,7 @@ samll 的样式太小，indicator 不能交互。
     android:rating="5"
     android:stepSize="1"/>
 ```
+
 rating_color.xml
 ```xml
 <?xml version="1.0" encoding="utf-8"?>

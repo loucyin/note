@@ -1,16 +1,18 @@
-# android attrs.xml  
-android attrs.xml 可以在SDK目录下找到：SDK\platforms\android-23\data\res\values\attrs.xml  
-![attrs.xml 截图](image/android_attrs.png)  
+# 自定义 View
+
+## android attrs.xml
+android attrs.xml 可以在SDK目录下找到：SDK\platforms\android-23\data\res\values\attrs.xml
+![attrs.xml 截图](image/android_attrs.png)
 
 标签`<eat-comment>`没弄明白什么意思。下面是stackoverflow上找到的解释。
 
-> `<eat-comment/>` is used to suppress comment lines from the documentation output.  
+> `<eat-comment/>` is used to suppress comment lines from the documentation output.
 
 
-# 自定义attrs
-1. 创建attrs.xml  
+## 自定义attrs
+1. 创建attrs.xml
 在value文件夹下新建attrs.xml
-- 创建一个 declare-styleable元素  
+- 创建一个 declare-styleable元素
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
@@ -20,14 +22,14 @@ android attrs.xml 可以在SDK目录下找到：SDK\platforms\android-23\data\re
     </declare-styleable>
 </resources>
 ```
-- attr标签属性  
+- attr标签属性
 attr 的format属性用于定义值的类型。值的类型有：boolean,integer,float,string不需要解释；
 reference:资源ID，color:颜色值，dimension:尺寸值，fraction:百分数，enum:枚举值，
-flag:位或运算。  
+flag:位或运算。
 format可以指定值为多种类型，比如circleColor可以是color，也可以是reference。
 
 
-# 在自定义View中使用
+## 在自定义View中使用
 - 在布局文件中使用自定义attrs
 ```xml
 <com.demo.CircleView
@@ -36,9 +38,9 @@ format可以指定值为多种类型，比如circleColor可以是color，也可�
         app:circleColor="#ff0000"
         app:radius="15"/>
 ```
-- 自定义View  
-自定义View的功能很简单，获取xml文件中设置的circleColor和radius,画个圆：  
-```java  
+- 自定义View
+自定义View的功能很简单，获取xml文件中设置的circleColor和radius,画个圆：
+```java
 public class CircleView extends View
 {
     private float mRadius;
@@ -104,7 +106,7 @@ public class CircleView extends View
 }
 ```
 
-# 使用到自定义attr的其他情况
+## 使用到自定义attr的其他情况
 
 ```java
 public CoordinatorLayout.Behavior (Context context, AttributeSet attrs)
@@ -112,12 +114,12 @@ public CoordinatorLayout.Behavior (Context context, AttributeSet attrs)
 
 在CoordinatorLayout.Behavior的构造函数中，有AttributeSet类型的参数，在自定义Behavior的时候，可以使用自定义的attr，具体使用可以参考下面的链接。
 
-# 自定义View注意事项  
+## 自定义View注意事项
 
 > 主要是要处理wrap_content 和padding。否则xml 那边设置这2个属性就根本没用了。还有不要在view中使用handler 因为人家已经提供了post方法。如果是继承自viewGroup,那在onMeasure和onLayout里面 也要考虑
-padding和layout的影响。也就是说specSize 要算一下 。最后就是如果view的动画或者线程需要停止，可以考虑在onDetachedFromWindow里面来做。   
+padding和layout的影响。也就是说specSize 要算一下 。最后就是如果view的动画或者线程需要停止，可以考虑在onDetachedFromWindow里面来做。
 
-别人家的代码  
+别人家的代码
 ```java
 public class CircleView extends View {
 
@@ -181,12 +183,12 @@ public class CircleView extends View {
 }
 ```
 
-参考链接：  
-[ Android中attrs.xml文件的使用详解](http://blog.csdn.net/jiangwei0910410003/article/details/17006087)  
-[Android开发学习之TypedArray类](http://blog.csdn.net/richerg85/article/details/11749421)  
-[TypedArray Reference](http://developer.android.com/reference/android/content/res/TypedArray.html)  
-[关于CoordinatorLayout与Behavior的一点分析](http://www.jianshu.com/p/a506ee4afecb)  
-[Style在Android中的继承关系](http://www.tuicool.com/articles/bq2eUvV)  
-[2.2　值文件](http://book.2cto.com/201301/14161.html)  
-[android XML tag called eat-comment, what is its use?](http://stackoverflow.com/questions/21837986/android-xml-tag-called-eat-comment-what-is-its-use/21893035#21893035)  
-[Android View绘制13问13答](http://www.cnblogs.com/punkisnotdead/p/5181821.html)
+## 参考链接：
+- [ Android中attrs.xml文件的使用详解](http://blog.csdn.net/jiangwei0910410003/article/details/17006087)
+- [Android开发学习之TypedArray类](http://blog.csdn.net/richerg85/article/details/11749421)
+- [TypedArray Reference](http://developer.android.com/reference/android/content/res/TypedArray.html)
+- [关于CoordinatorLayout与Behavior的一点分析](http://www.jianshu.com/p/a506ee4afecb)
+- [Style在Android中的继承关系](http://www.tuicool.com/articles/bq2eUvV)
+- [2.2　值文件](http://book.2cto.com/201301/14161.html)
+- [android XML tag called eat-comment, what is its use?](http://stackoverflow.com/questions/21837986/android-xml-tag-called-eat-comment-what-is-its-use/21893035#21893035)
+- [Android View绘制13问13答](http://www.cnblogs.com/punkisnotdead/p/5181821.html)

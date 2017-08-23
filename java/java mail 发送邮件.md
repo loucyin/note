@@ -66,7 +66,6 @@ public class SendmailUtil {
             transport.close();
             System.out.println("send success!");
         } catch (AddressException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (MessagingException e) {
             e.printStackTrace();

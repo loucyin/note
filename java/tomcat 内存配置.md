@@ -72,8 +72,6 @@ Caused by: java.lang.RuntimeException: unknown CollectedHeap type : class sun.jv
         ... 6 more
 ```
 
-##
-
 ## 参考链接
 
 - [Linux 下修改Tomcat使用的JVM内存大小](http://www.cnblogs.com/sixiweb/archive/2012/11/25/2787591.html)

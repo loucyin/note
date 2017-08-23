@@ -1,3 +1,5 @@
+# greendao
+
 ## 配置环境
 - 模块的 builde.gradle 下添加：
 ```gradle
@@ -10,7 +12,7 @@ greendao {
     targetGenDir 'src/main/java'
 }
 ```
-greendao 配置 DaoMaster DaoSession Dao 文件的生成目录为：当前 package 下面的 model 文件夹。  
+greendao 配置 DaoMaster DaoSession Dao 文件的生成目录为：当前 package 下面的 model 文件夹。
 编译之后自动生成。
 - 工程下的 builde.gradle 下添加：
 ```gradle
