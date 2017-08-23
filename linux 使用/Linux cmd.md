@@ -73,8 +73,14 @@ last
 
 - 清空
 ```
-echo >/var/log/wtmp 
+echo >/var/log/wtmp
 ```
+
+## `nohup command > file 2>&1 &`
+
+- nohup命令：如果你正在运行一个进程，而且你觉得在退出帐户时该进程还不会结束，那么可以使用nohup命令。该命令可以在你退出帐户/关闭终端之后继续运行相应的进程；
+- `2>&1`: `&1` 更准确的说应该是文件描述符 1，其中0 表示键盘输入，1 表示屏幕输出，2表示错误输出 。`2>&1`是将标准出错重定向到标准输出；
+- `&`: 表示命令在后台执行。
 
 
 ## 参考链接
@@ -83,3 +89,4 @@ echo >/var/log/wtmp
 - [Linux 查看系统硬件信息(实例详解)](http://www.cnblogs.com/ggjucheng/archive/2013/01/14/2859613.html)
 - [Linux man命令的使用方法](http://www.cnblogs.com/hnrainll/archive/2011/09/06/2168604.html)
 - [远程连接Linux，如何使程序断开连接后继续运行](http://blog.csdn.net/lyjcn/article/details/52780555)
+- [nohup /dev/null 2>&1 含义详解](http://blog.csdn.net/u010889390/article/details/50575345)
