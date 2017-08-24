@@ -1,4 +1,4 @@
-# SSL 相关文档
+# SSL 相关笔记
 
 - [Https 自签名证书.md](../java/Https 自签名证书.md)
 - [SSL Socket.md](../java/SSL Socket.md)

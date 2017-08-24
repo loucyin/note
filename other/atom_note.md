@@ -10,29 +10,31 @@ Ctrl + b 查找打开的文件<br>
 Ctrl + Shift + b 查找上次提交后更改的文件
 
 ## 代码模板
+
 - 搜索命令：Application:Open Your Snippets
 - 回车打开 snippets 模板
 - 编辑模板
-```javascript
-'.source.coffee':
- 'Console log':
-   'prefix': 'log'
-   'body': 'console.log $1'
-```
 
-名称|内容
-:---|:---
-`.source.coffee`|模板使用类型(可以修改)
-`Console log`|模板名称(自定义)
-`'prefix': 'log'`|prefix 代码前缀，(自定义)<br>在相应的文件中，输入 `log` 会出现代码提示
-`'body': 'console.log $1'`|模板内容<br>选择模板后，模板代码会自动插入
+  ```javascript
+  '.source.coffee':
+   'Console log':
+     'prefix': 'log'
+     'body': 'console.log $1'
+  ```
 
-body 光标规则：
+  名称|内容
+  :---|:---
+  `.source.coffee`|模板使用类型(可以修改)
+  `Console log`|模板名称(自定义)
+  `'prefix': 'log'`|prefix 代码前缀，(自定义)<br>在相应的文件中，输入 `log` 会出现代码提示
+  `'body': 'console.log $1'`|模板内容<br>选择模板后，模板代码会自动插入
 
-名称|内容
-:---|:---
-${1}|插入代码后，光标会出现在 ${1} 位置，回车后光标会跳到 ${2} 的位置
-${2:接口名}|${2} 处的默认值为：接口名
+  body 光标规则：
+
+  名称|内容
+  :---|:---
+  ${1}|插入代码后，光标会出现在 ${1} 位置，回车后光标会跳到 ${2} 的位置
+  ${2:接口名}|${2} 处的默认值为：接口名
 
 ## atom 安装插件
 

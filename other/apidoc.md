@@ -4,29 +4,36 @@
 [nodeJs 下载地址](http://nodejs.cn/download/)
 
 ### npm 配置淘宝镜像
+
 ```
 npm config set registry https://registry.npm.taobao.org
 ```
+
 ### 安装 apidoc
+
 ```
 npm install apidoc -g
 ```
 
 ### 使用 apidoc
+
 ```
 apidoc -i E:\code -o E:\api
 ```
+
 apidoc 详细使用说明，见[参考链接](http://apidocjs.com/)。
 
 ## apidoc 简介
 
 ### group and name
+
 params|描述|默认
 :---|:---|:---
 @apiName|用于指定方法名|如 `@api {PUT} /boxes/config/password 修改盒子的访问密码`<br/>name 为：PutBoxesConfigPassword
 @apiGroup|用于指定 api 所属分组|如果 group 中为 `boxes/config`<br/>url 中会转为 boxes_config
 
 apiGroup + apiName 可以用于定位 api 在 html 中的位置，规则如下：
+
 ```
 #api-{apiGroup}-{apiName}
 ```
@@ -41,15 +48,15 @@ apiGroup + apiName 可以用于定位 api 在 html 中的位置，规则如下�
 
 - 必须的信息
 
-参数|所属 params|描述
-:---|:---|
-method|@api|请求方式
-path|@api|地址
-title|@api|导航中的方法名
-name|@apiName|英文，大驼峰命名
-version|@apiVersion|版本号
-description|@apiDescription|描述
-group|@apiGroup|英文，大驼峰命名
+  参数|所属 params|描述
+  :---|:---|
+  method|@api|请求方式
+  path|@api|地址
+  title|@api|导航中的方法名
+  name|@apiName|英文，大驼峰命名
+  version|@apiVersion|版本号
+  description|@apiDescription|描述
+  group|@apiGroup|英文，大驼峰命名
 
 - apiDefine 使用大驼峰命名
 - apiParam apiSuccess 中的 group 使用小写下划线命名，如：
