@@ -87,8 +87,8 @@ uploadArchives {
                     }
                 }
             }
-            repository(url: "http://106.14.186.157:10081/nexus/content/repositories/snapshots/") {
-                authentication(userName: "admin", password: "admin123")
+            repository(url: "http://url/nexus/content/repositories/snapshots/") {
+                authentication(userName: "username", password: "passoword")
             }
         }
     }
