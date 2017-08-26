@@ -1,7 +1,9 @@
 # maven 基础
 
 ## 命令行运行
+
 ### 编译
+
 exec:java 不会自动编译代码，需要手动编译
 ```
 mvn compile
@@ -28,6 +30,7 @@ mvn compile
   ```
 
 ## maven Resources
+
 maven 默认 resources 文件夹下的内容会编译到 classpath 下。但是，在 pom.xml 中配置 resources 节点后，resources 就不会自动编译到 classpath 下。
 
 ## settings.xml
@@ -36,8 +39,6 @@ settings.xml 用于存放 maven 配置信息，位置:
 
 - mavneHome/conf/settings.xml ，全局位置
 - ~/.m2/settings.xml，用户位置，如果存在，上面的文件不起作用。
-
-
 
 ## maven 镜像配置
 
