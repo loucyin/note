@@ -307,41 +307,6 @@ build{
 }
 ```
 
-## gradle 生成可执行 jar 包
-
-在 build.gradle 中加入如下代码：
-
-```groovy
-jar {
-
-    archiveName = "init.jar"
-
-    from {
-        configurations.runtime.collect {
-            it.isDirectory() ? it : zipTree(it)
-        }
-        configurations.compile.collect {
-            it.isDirectory() ? it : zipTree(it)
-        }
-    }
-
-    manifest {
-        attributes 'Main-Class': 'com.lcy.demo.InitProjectUtil'
-    }
-    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
-}
-```
-
-## gradle 不支持 tool.jar
-
-添加依赖
-```groovy
-def jdkHome = System.getenv("JAVA_HOME")
-dependencies {
-    compile files("$jdkHome/lib/tools.jar")
-}
-```
-
 ## 参考链接
 
 - [百度百科 gradle](http://baike.baidu.com/link?url=irOH1pxXeqYPRZ7pofxDiBZ7I37nvpzzS75qfkXYQ3FRGuUQE5BhZ11xRzwou2q7Pi9K525JkZPhwaV9Fai8PK)
