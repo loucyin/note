@@ -29,13 +29,13 @@
 ## IIS 中配置 PHP
 
 - 打开处理程序映射<br>
-  ![打开处理程序映射](../image/iis_php_step1.jpg)
+  ![打开处理程序映射](./image/iis_php_step1.jpg)
 - 添加模块映射<br>
-  ![添加模块映射](../image/iis_php_step2.jpg)
+  ![添加模块映射](./image/iis_php_step2.jpg)
 - 打开添加默认文档<br>
-  ![打开添加默认文档](../image/iis_php_step3.jpg)
+  ![打开添加默认文档](./image/iis_php_step3.jpg)
 - 添加默认文档<br>
-  ![打开添加默认文档](../image/iis_php_step4.jpg)
+  ![打开添加默认文档](./image/iis_php_step4.jpg)
 
 ## 配置 phpcms
 

@@ -44,8 +44,15 @@ apktool b test
 - 签名
 
   ```
-  jarsigner -verbose -keystore keystore文件路径 -signedjar test-signed.apk test.apk 别名
+  jarsigner -verbose -keystore E:\demo\test.jks -signedjar test-signed.apk test.apk key0
   ```
+
+字段|含义
+:---|:---
+E:\demo\test.jks|keystore 文件路径
+key0 | keystore 别名
+test.apk |代表要加密的 apk 文件路径
+test-signed.apk | 表示输出路径
 
 ## 参考链接
 - [Android反编译工具的使用-Android Killer](http://www.cnblogs.com/common1140/p/5198460.html)
