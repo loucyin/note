@@ -32,7 +32,7 @@ ClassLoader 采用的是`双亲委托模型`来搜索类的。
 - 这样可以避免重复加载，当父亲已经加载了该类的时候，就没有必要子ClassLoader再加载一次。
 - 防止自定义的类替代 Java 核心 api 中的类。
 
-![加载顺序](./image/class_loader_order.jpg)
+![加载顺序](../image/class_loader_order.jpg)
 
 1. 自底向上检查类是否已经加载
 2. 自顶向下尝试加载类
