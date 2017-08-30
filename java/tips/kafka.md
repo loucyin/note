@@ -6,6 +6,8 @@
 它提供了类似于 JMS（Java Message Service） 的特性，但是在设计实现上完全不同，此外它并不是JMS规范的实现。kafka 对消息保存时根据Topic进行归类，发送消息者成为 Producer ,消息接受者成为 Consumer ,此外 kafka 集群有多个 kafka 实例组成，每个实例(server)成为 broker。无论是 kafka 集群，还是 producer 和 consumer 都依赖于 zookeeper 来保证系统可用性集群保存一些 meta 信息。
 
 ## 用途
+> - Building real-time streaming data pipelines that reliably get data between systems or applications
+- Building real-time streaming applications that transform or react to the streams of data
 
 - 构建可在系统或应用程序之间可靠获取数据的实时流数据流水线
 - 构建对数据流进行变换或反应的实时流应用程序
@@ -17,7 +19,7 @@
 - Streams API 从一个或多个主题消费一条记录，并发布记录到一个或多个主题
 - Connector API 允许构建和运行复用那些连接 kafka 主题到已经存在的应用或者数据系统的生产者或消费者。
 
-![Kafuka API](./image/kafka-apis.png)
+![Kafuka API](../image/kafka-apis.png)
 图片来自官网
 
 ## 命令
@@ -153,7 +155,9 @@ public class ConsumerDemo {
 **运行程序之前，先启动 kafka。**
 
 ## stream
+
 ### 两种类型
+
 - KStream
 > 在一个流中(KStream)，每个key-value是一个独立的信息片断，比如，用户购买流是：alice->黄油，bob->面包，alice->奶酪面包，我们知道alice既买了黄油，又买了奶酪面包。
 
@@ -191,8 +195,24 @@ public static void main(String[] args){
 上面的 KStream 消费一个 topic1 的一条记录，将记录的文本长度发送到 TEST-TOPIC 。
 
 ## 笔记
+
 - kafka 集群可以通过配置保留期限保留所有发布的记录，不管是否被消费
-- 每条记录都会有一个偏移量，偏移量由消费者控制，通常消费者读取记录时线性提高祁偏移量；消费者也可以通过控制偏移量消费之前的记录
+- 每条记录都会有一个偏移量，偏移量由消费者控制，通常消费者读取记录时线性提高偏移量；消费者也可以通过控制偏移量消费之前的记录
+
+## Topic and Partition
+
+- 一个 topic 可以有 多个 partition
+- partition以文件的形式存储在文件系统中
+- 创建 topic 可以指定分区数，如果不指定，会使用配置文件中的默认数量（server.properties 中的 num.partitions）
+- 增加分区数可以提供 kafka 集群的吞吐量，但是单台服务器上分区数过多，会导致磁盘 IO 压力过大
+- consumer消息的线程数不能大于 partition 数
+
+**随着 Topic 数的增加 Kafka 吞吐量会急剧下降**
+
+![kafka rocketmq 对比](../image/kafka_rocketmq.png)
+
+[图片来源](https://yq.aliyun.com/articles/25379)
+
 
 ## 参考链接
 - [百度百科](http://baike.baidu.com/link?url=swNHcRq-sjnH9FbPm3cmYTl0KZ8fGPkr6YTk7pxenXm8KRBb2Pxje
@@ -200,4 +220,7 @@ TiBgIaHL0MNMW7jT7RqIx0-jssyZP2Wgq)
 - [kafka java demo](http://wandejun1012.iteye.com/blog/2310349)
 - [入门](http://www.cnblogs.com/likehua/p/3999538.html)
 - [Kafka Introduction](http://kafka.apache.org/intro)
-- [KafkaStream简介](http://www.tuicool.com/articles/yMbmY3e)
+- [KafkaStream 简介](http://www.tuicool.com/articles/yMbmY3e)
+- [kafka 的 log 存储解析](http://www.cnblogs.com/dorothychai/p/6181058.html)
+- [Kafka vs RocketMQ—— Topic数量对单机性能的影响](https://yq.aliyun.com/articles/25379)
+- [Kafka学习整理八(topic管理)](http://blog.csdn.net/LOUISLIAOXH/article/details/51597173)
