@@ -97,6 +97,19 @@ uploadArchives {
 
 **pom.project 中的信息会写入到 pom.xml 中。**
 
+## gradle.properties
+
+gradle.properties 用于设置 gradle 运行的参数。
+
+```
+systemProp.http.proxyHost=127.0.0.1
+systemProp.http.proxyPort=42885
+org.gradle.jvmargs=-Xmx1536m
+```
+
+设置 gradle http 代理地址为 127.0.0.1:42885
+最大堆内存： 1536M
+
 ## 参考链接
 
 - [gradle 发布jar包到nexus](http://blog.csdn.net/bolg_hero/article/details/50418669)
