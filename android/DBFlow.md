@@ -39,7 +39,7 @@ Application onCreate 中加入：
 ### 简单版本
 
 ```kotlin
-  FlowManager.init(this)
+FlowManager.init(this)
 ```
 
 ### 自定义，支持 SQLCipher
@@ -47,29 +47,29 @@ Application onCreate 中加入：
 初始化方法
 
 ```kotlin
-    private fun initDbFlow() {
-        val dbConfig = DatabaseConfig.builder(AppDatabase::class.java)
-                .openHelper(
-                        DatabaseConfig.OpenHelperCreator(
-                                { definition, listener ->
-                                    MyOpenHelper(definition, listener)
-                                }))
-                .build()
-        val config = FlowConfig.builder(this)
-                .addDatabaseConfig(dbConfig)
-                .build()
-        FlowManager.init(config)
-    }
+private fun initDbFlow() {
+    val dbConfig = DatabaseConfig.builder(AppDatabase::class.java)
+            .openHelper(
+                    DatabaseConfig.OpenHelperCreator(
+                            { definition, listener ->
+                                MyOpenHelper(definition, listener)
+                            }))
+            .build()
+    val config = FlowConfig.builder(this)
+            .addDatabaseConfig(dbConfig)
+            .build()
+    FlowManager.init(config)
+}
 ```
 
 OpenHelper
 
 ```kotlin
-    class MyOpenHelper(databaseDefinition: DatabaseDefinition?, listener: DatabaseHelperListener?) : SQLCipherOpenHelper(databaseDefinition, listener) {
-        override fun getCipherSecret(): String {
-            return "hello-db"
-        }
+class MyOpenHelper(databaseDefinition: DatabaseDefinition?, listener: DatabaseHelperListener?) : SQLCipherOpenHelper(databaseDefinition, listener) {
+    override fun getCipherSecret(): String {
+        return "hello-db"
     }
+}
 ```
 
 数据库定义
@@ -83,6 +83,22 @@ object AppDatabase {
 ```
 
 ## 定义表格
+
+此处有坑：
+
+**定义的数据类必须要有默认的构造方法，也就是说定义 Kotlin data class 时，必须给属性赋初值，否则编译不通过。**
+
+```kotlin
+@Table(database = AppDatabase::class)
+data class User(
+        @PrimaryKey(autoincrement = true)
+        var id: Int=0,
+        @Column
+        var name: String?=null)
+```
+
+
+
 
 ## 参考链接
 
