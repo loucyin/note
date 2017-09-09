@@ -145,6 +145,14 @@ git checkout --orphan latest
 git merge other --allow-unrelated-histories
 ```
 
+## git checkout
+
+从远程分支拉取一个分支：
+
+```
+git checkout -b test origin/test
+```
+
 ## 参考链接：
 
 - [知乎 clone 和 pull 的区别](https://www.zhihu.com/question/39595933)
