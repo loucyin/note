@@ -115,6 +115,7 @@
 
   ```
   git push origin --delete branch
+  git push origin :branch
   ```
 
 ## clone OR pull , 还是 fetch + merge 吧
@@ -145,11 +146,10 @@ git checkout --orphan latest
 git merge other --allow-unrelated-histories
 ```
 
-## git checkout
-
 从远程分支拉取一个分支：
 
 ```
+git checkout --track origin/test
 git checkout -b test origin/test
 ```
 
