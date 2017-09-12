@@ -153,6 +153,51 @@ git merge other --allow-unrelated-histories
 git checkout -b test origin/test
 ```
 
+## git cherry-pick
+
+- 使用 git 在 master 分支上创建一个 commit
+- 现在 branch1 也需要这个更改
+
+```
+# 查看刚才提交的 id
+git log
+# 切换到 branch1 分支
+git checkout branch1
+# 使用修改 id 为 f4cd
+git cherry-pick f4cd
+```
+
+## git rebase
+
+修改一个问题，第一次修改完成，提交，但是测试有 bug ，改 bug ，又提交一次，其实两次提交只是修改一个问题。
+
+```
+git add --all
+git commit -m "修复 bug"
+git add --all
+git commit -m "修复 bug"
+git rebase -i HEAD~2
+```
+
+之后会进入修改界面，几个关键字：
+
+```
+# Commands:
+#  p, pick = use commit
+#  r, reword = use commit, but edit the commit message
+#  e, edit = use commit, but stop for amending
+#  s, squash = use commit, but meld into previous commit
+#  f, fixup = like "squash", but discard this commit's log message
+```
+
+- pick 使用这次提交
+- reword 使用这次提交，但是可以修改提交信息
+- edit 使用提交
+- squash 这次提交会合并到上一个提交里面
+- fixup 和 squash 差不多，但是会丢弃提交内容
+
+> 假如你在开发过程中对于一个小功能有多次提交，你想要把他们合并成一个提交，或者你想给提交排序，那这个功能就很有用了。但是假如你已经把 commits 推到了远程分支，那么就不可以使用 rebase 了。
+
 ## 参考链接：
 
 - [知乎 clone 和 pull 的区别](https://www.zhihu.com/question/39595933)
