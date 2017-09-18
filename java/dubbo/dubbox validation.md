@@ -41,3 +41,19 @@ dubbox 使用 resteasy 实现了 rest 协议，resteasy 使用 validator 依赖�
 - 将实现类加入到 rest 协议的 extension 中
 
 **关于 validation 使用，自行百度关键字 javax validation**
+
+## JSR 303 validation i18n
+
+resources 目录下创建 ValidationMessages_zh_CN.properties
+```
+# 用户名不能为空
+user.name.NotNull=\u7528\u6237\u540d\u4e0d\u80fd\u4e3a\u7a7a
+```
+
+使用 message
+```java
+class User{
+  @NotNull(message = "{user.name.NotNull}")
+  private String name;
+}
+```
