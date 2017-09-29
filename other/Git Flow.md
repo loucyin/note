@@ -25,6 +25,12 @@ Git Flow 、Github Flow、Gitlab Flow 是使用 git 分支进行团队协作开�
 > - 令master 分支时常保持可以部署的状态
 - 合并的代码一定要测试
 
+### 多版本维护
+
+- Github flow 专门配合"持续发布"
+- 通过 tag 的方式发布版本
+- 多版本维护，可以从 tag 拉取分支，修改完成后打 tag 发布版本
+
 ## Gitlab Flow
 
 > Gitlab flow 是 Git flow 与 Github flow 的综合。它吸取了两者的优点，既有适应不同开发环境的弹性，又有单一主分支的简单和便利。

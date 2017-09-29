@@ -1,4 +1,7 @@
 # dubbox 插件
+
+JAX-RS 中 Providers SPI 在 dubbox 中是通过 extension 的方式加载的。
+
 ## dubbox exception 处理
 
 ### 需求场景
