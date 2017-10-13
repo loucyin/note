@@ -12,8 +12,6 @@
 - 客户端请求 url
 - 服务器解析 request ，如果解析不到授权信息，会返回 401 错误
 
-TODO : 整理
-
 ## basic
 通过浏览器访问 basic 认证的 url 会出现输入用户名、密码的对话框。
 
@@ -30,7 +28,7 @@ basic 发送认证信息的两种方式：
   Authorization:Basic dXNlcjpwYXNzd29yZA==
   ```
 
-tips:
+### 注意
 - 由于 base64 算法是可逆的所以，可以将密码进行 md5 运算，转换为不可逆的，但是任然无法避免 Replay Attack
 - 在 http 请求中使用 basic 授权方式并不安全，可以通过使用 https 提高安全系数。
 
@@ -65,6 +63,89 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
     }
 }
 ```
+
+### HttpSecurity 几种鉴权方式
+
+- 登录权限
+  ```java
+  http.authorizeRequests().antMatchers("/**").authenticated()
+  ```
+  需要用户通过用户鉴权
+- 角色
+  ```java
+  http.authorizeRequests().antMatchers("/**").hasRole("USER")
+  ```
+  登录用户是否拥有 USER 角色
+- IP
+  ```java
+  http.authorizeRequests().antMatchers("/**").hasIpAddress("192.168.1.31")
+  ```
+  需要用户通过 ip 地址访问 url
+
+### 使用数据库提供用户数据
+
+```kotlin
+@Autowired
+fun configureGlobal(auth: AuthenticationManagerBuilder) {
+    auth.jdbcAuthentication()
+            .dataSource(dataSource)
+            .usersByUsernameQuery("select name as username,password,id > 0 as enabled from t_user where name = ?")
+            .authoritiesByUsernameQuery("select A.name as username ,C.name as role from  (select * from t_user where name = ?) as A\n" +
+                    "left join  t_user_role B\n" +
+                    "on B.user_id = A.id\n" +
+                    "left join t_role C\n" +
+                        "on C.id = B.role_id")
+            .rolePrefix("ROLE_")
+
+    filter.userDetailsService = auth.defaultUserDetailsService
+}
+```
+
+```sql
+CREATE TABLE IF NOT EXISTS `mydb`.`t_user` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS `mydb`.`t_role` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `parent_id` INT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_parent_id_idx` (`parent_id` ASC),
+  CONSTRAINT `fk_parent_role_id`
+    FOREIGN KEY (`parent_id`)
+    REFERENCES `mydb`.`t_role` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS `mydb`.`t_user_role` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `role_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_user_id_idx` (`user_id` ASC),
+  INDEX `fk_role_id_idx` (`role_id` ASC),
+  UNIQUE INDEX `uk_user_role` (`user_id` ASC, `role_id` ASC),
+  CONSTRAINT `fk_ur_user_id`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `mydb`.`t_user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_ur_role_id`
+    FOREIGN KEY (`role_id`)
+    REFERENCES `mydb`.`t_role` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+```
+
+通过下面方式指定角色权限的时候：
+```java
+http.authorizeRequests().antMatchers("/**").hasRole("USER")
+```
+需要添加前缀`ROLE_`。
 
 ## digest
 
