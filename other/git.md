@@ -198,12 +198,20 @@ git rebase -i HEAD~2
 
 > 假如你在开发过程中对于一个小功能有多次提交，你想要把他们合并成一个提交，或者你想给提交排序，那这个功能就很有用了。但是假如你已经把 commits 推到了远程分支，那么就不可以使用 rebase 了。
 
+## 乱码问题
+使用git add添加要提交的文件的时候，如果文件名是中文，会显示形如 274\232\350\256\256\346\200\273\347\273\223 的乱码,进行如下设置，可正常显示中文。
+
+```
+git config --global core.quotepath false
+```
+
 ## 参考链接：
 
 - [知乎 clone 和 pull 的区别](https://www.zhihu.com/question/39595933)
 - [Git 少用 Pull 多用 Fetch 和 Merge](http://www.cnblogs.com/flying_bat/p/3408634.html)
 - [git 文件打包命令](https://segmentfault.com/a/1190000002443283)
 - [Git查看、删除、重命名远程分支和tag](http://zengrong.net/post/1746.htm)
+- [git乱码解决方案汇总](http://blog.csdn.net/yunnywu/article/details/50553908)
 
 > **_我最擅长从零开始创造世界，所以从来不怕失败，它最多也就让我一无所有。_**<br>
 > ---- Git少用Pull多用Fetch和Merge
