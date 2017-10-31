@@ -198,7 +198,7 @@ while @a > 0 do
 update (select * from isap.t_department where id = parent) as B
 left join
 isap.t_department A
-on A.parent = B.id 
+on A.parent = B.id
 set  A.parent_ids = A.parent;
 SET SQL_SAFE_UPDATES = 0;
 update (select * from isap.t_department where id != parent) as B
@@ -213,7 +213,18 @@ call update_department_parent_ids();
 drop procedure update_department_parent_ids;
 ```
 
+## having
 
+having 子句可以在聚合后对组记录进行筛选，一般和 `group by` 一起使用。
+
+显示每个地区的总人口数和总面积．仅显示那些面积超过1000000的地区：
+
+```
+SELECT region, SUM(population), SUM(area)
+FROM bbc
+GROUP BY region
+HAVING SUM(area)>1000000
+```
 
 ## 参考链接
 
@@ -221,3 +232,4 @@ drop procedure update_department_parent_ids;
 - [mysql处理字符串的两个绝招：substring_index,concat](http://blog.csdn.net/wolinxuebin/article/details/7845917)
 - [mysql之触发器trigger](http://www.cnblogs.com/zzwlovegfj/archive/2012/07/04/2576989.html)
 - [InnoDB全文索引：N-gram Parser](http://mysqlserverteam.com/innodb%E5%85%A8%E6%96%87%E7%B4%A2%E5%BC%95%EF%BC%9An-gram-parser/?spm=5176.blog15673.yqblogcon1.4.Bvz18O)
+- [mysql having的用法](http://www.cnblogs.com/lmaster/p/6373045.html)
