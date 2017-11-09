@@ -109,6 +109,26 @@ gradle 脚本使用 Groovy 写的，什么是 Groovy 呢：
   gradle myTask8
   ```
 
+## zip 打包
+
+build 完成后将 lib 与 脚本打包到一块。
+```
+task generateZip(type:Zip){
+    destinationDir = file('/')
+    archiveName 'generator.zip'
+
+    from('/'){
+        include('generator.bat')
+        into 'test'
+    }
+
+    from('/build/libs'){
+        include('excel-generator.jar')
+        into 'test'
+    }
+}
+```
+
 ## gradle task 依赖关系
 
 - dependsOn<br>
