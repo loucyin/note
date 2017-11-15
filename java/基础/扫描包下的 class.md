@@ -4,10 +4,11 @@
 
 ## 获取包路径
 
-通过 classLoader.getResources 获取包的 URL
+- 将 package 中的 `.` 替换成 `/`
+- 通过 classLoader.getResources 获取包的 URL
 
   ```kotlin
-  val packagePath = packageName.replace(ScannerConst.PACKAGE_DIVIDER_CHAR, ScannerConst.PATH_DIVIDER_CHAR)
+  val packagePath = packageName.replace('.','/')
   val dirs = Thread.currentThread().contextClassLoader.getResources(packagePath)
   ```
 

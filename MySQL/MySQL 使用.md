@@ -226,6 +226,14 @@ GROUP BY region
 HAVING SUM(area)>1000000
 ```
 
+## 按拼音排序
+
+> 如果存储汉字的字段编码使用的是GBK字符集，因为GBK内码编码时本身就采用了拼音排序的方法（常用一级汉字3755个采用拼音排序，二级汉字就不是了，但考虑到人名等都是常用汉字，因此只是针对一级汉字能正确排序也够用了），直接在查询语句后面添加ORDER BY name ASC，查询结果将按照姓氏的升序排序；如果存储姓名的字段采用的是utf8字符集，需要在排序的时候对字段进行转码，对应的代码是ORDER BY convert(name using gbk) ASC，同样，查询的结果也是按照姓氏的升序排序。
+
+```sql
+select * from test order by convert(name using gbk)
+```
+
 ## 参考链接
 
 - [UPDATE SET = (SELECT ) 语法的总结](http://blog.itpub.net/133735/viewspace-731988/)
@@ -233,3 +241,4 @@ HAVING SUM(area)>1000000
 - [mysql之触发器trigger](http://www.cnblogs.com/zzwlovegfj/archive/2012/07/04/2576989.html)
 - [InnoDB全文索引：N-gram Parser](http://mysqlserverteam.com/innodb%E5%85%A8%E6%96%87%E7%B4%A2%E5%BC%95%EF%BC%9An-gram-parser/?spm=5176.blog15673.yqblogcon1.4.Bvz18O)
 - [mysql having的用法](http://www.cnblogs.com/lmaster/p/6373045.html)
+- [MySQL按照汉字的拼音排序、按照首字母分类](https://www.cnblogs.com/pallee/p/4615621.html)
