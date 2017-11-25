@@ -188,6 +188,11 @@ task generateZip(type:Zip){
     }
   }
   ```
+- 父级 build.gradle 依赖子项目 build.gradle
+
+  ```groovy
+  dependsOn("excel-generator:build","excel-uploader:build")
+  ```
 
 ## 使用 gradle 构建 HelloWorld
 
