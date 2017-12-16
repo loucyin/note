@@ -58,5 +58,13 @@ java 里面通过 `&` `|` `^` 实现按位运算，kotlin 不支持这 3 个运�
 1.xor(1)
 ```
 
+## lambda 表达式
+
+使用 lambda 表示接口
+
+```kotlin
+BiFunction{ t1, t2 -> true}
+```
+
 ## 参考链接
 - [kotlin-reference](http://kotlinlang.org/docs/reference/)

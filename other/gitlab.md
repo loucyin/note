@@ -22,6 +22,7 @@
 TODO : 通过 webhook 实现，根据 comment 自动合并 merge request.
 
 ## 参考链接
-- [gitlab 8.13 80 8080端口冲突问题](blog.csdn.net/vbaspdelphi/article/details/52979836)
+- [gitlab 8.13 80 8080端口冲突问题](http://blog.csdn.net/vbaspdelphi/article/details/52979836)
 - [gitlab weebhook](https://docs.gitlab.com/ee/user/project/integrations/webhooks.html)
 - [gitlab api](http://docs.gitlab.com/ee/api/README.html)
+- [本地服务器Gitlab的搭建及卸载---基于centos6.5](http://blog.csdn.net/haiyu94/article/details/68929360?locationNum=16&fps=1)

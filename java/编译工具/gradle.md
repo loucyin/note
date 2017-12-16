@@ -109,6 +109,37 @@ gradle 脚本使用 Groovy 写的，什么是 Groovy 呢：
   gradle myTask8
   ```
 
+## task 调用
+
+通过 `task.execute()` 在代码中调用 task：
+
+```groovy
+build{
+    doLast {
+        generateZip.execute()
+    }
+}
+task generateZip(type:Zip){
+    destinationDir = file('../')
+    archiveName 'gitlab-webhook.zip'
+
+    from('/src/main/shell'){
+        include('*')
+        into 'gitlab-webhook'
+    }
+
+    from('/build/libs'){
+        include('gitlab-webhook.jar')
+        into 'gitlab-webhook'
+    }
+
+    from('../'){
+        include('merge_strategy.json')
+        into 'gitlab-webhook'
+    }
+}
+```
+
 ## zip 打包
 
 build 完成后将 lib 与 脚本打包到一块。
