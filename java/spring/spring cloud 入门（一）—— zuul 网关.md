@@ -105,3 +105,5 @@ class ZuulApp {
 
 - [Spring Cloud - Zuul Proxy is producing a No 'Access-Control-Allow-Origin' ajax response
 ](https://stackoverflow.com/questions/28670640/spring-cloud-zuul-proxy-is-producing-a-no-access-control-allow-origin-ajax-r)
+- [zuul动态路由加载配置](https://segmentfault.com/a/1190000009458575)
+- [ zuul动态配置路由规则，从DB读取](http://blog.csdn.net/tianyaleixiaowu/article/details/77933295?locationNum=5&fps=1)
