@@ -35,7 +35,6 @@ FeiginClient 的 name、url 属性支持占位符，kotlin 中 `$` 是关键字�
 ```kotlin
 @RestController
 @SpringBootApplication
-@EnableAutoConfiguration
 @EnableFeignClients
 class FeignClientApp {
 
@@ -52,6 +51,15 @@ fun main(args: Array<String>) {
     SpringApplication.run(FeignClientApp::class.java)
 }
 ```
+
+**关于注解**
+- SpringBootApplication 注解中的 scanBasePackages 属性，用于配置扫描 Spring bean
+- EnableFeignClients 注解中的 basePackages 属性，用于配置扫描 feign client bean
+
+在同一个模块中，把 app 启动类，放到不同的包下，不会有任何问题；但是，当把 feign client
+ api 分成两个模块时，需要配置 EnableFeignClients 的 basePackages 属性，指定扫描
+ feign client 的目录。
+
 
 ## 配置文件 application.yml
 
