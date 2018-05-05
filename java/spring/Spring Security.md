@@ -72,4 +72,4 @@ server:
 
 ## basic 认证以及 digest 认证
 
-查看 [http 几种授权方式](../web/http 几种授权方式.md)
+查看 [http 几种授权方式](./../web/http 几种授权方式.md)
