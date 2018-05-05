@@ -9,13 +9,16 @@
 - AWS Signature
 
 ## 授权过程
+
 - 客户端请求 url
 - 服务器解析 request ，如果解析不到授权信息，会返回 401 错误
 
 ## basic
+
 通过浏览器访问 basic 认证的 url 会出现输入用户名、密码的对话框。
 
 basic 发送认证信息的两种方式：
+
 - url 前拼接用户名密码
 
   ```
@@ -29,9 +32,9 @@ basic 发送认证信息的两种方式：
   ```
 
 ### 注意
+
 - 由于 base64 算法是可逆的所以，可以将密码进行 md5 运算，转换为不可逆的，但是任然无法避免 Replay Attack
 - 在 http 请求中使用 basic 授权方式并不安全，可以通过使用 https 提高安全系数。
-
 
 通过 Spring Security 使用 basic Authentication：
 
@@ -67,20 +70,26 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
 ### HttpSecurity 几种鉴权方式
 
 - 登录权限
+
   ```java
   http.authorizeRequests().antMatchers("/**").authenticated()
   ```
-  需要用户通过用户鉴权
+
+   需要用户通过用户鉴权
 - 角色
+
   ```java
   http.authorizeRequests().antMatchers("/**").hasRole("USER")
   ```
-  登录用户是否拥有 USER 角色
+
+   登录用户是否拥有 USER 角色
 - IP
+
   ```java
   http.authorizeRequests().antMatchers("/**").hasIpAddress("192.168.1.31")
   ```
-  需要用户通过 ip 地址访问 url
+
+   需要用户通过 ip 地址访问 url
 
 ### 使用数据库提供用户数据
 
@@ -142,9 +151,11 @@ ENGINE = InnoDB;
 ```
 
 通过下面方式指定角色权限的时候：
+
 ```java
 http.authorizeRequests().antMatchers("/**").hasRole("USER")
 ```
+
 需要添加前缀`ROLE_`。
 
 ## digest
@@ -152,37 +163,40 @@ http.authorizeRequests().antMatchers("/**").hasRole("USER")
 Digest Authentication比Basic安全，但是并不是真正的什么都不怕了，Digest Authentication这种容易方式容易收到Man in the Middle式攻击。
 
 header 授权参数：
+
 ```
 Authorization:Digest username="user", realm="Contacts Realm via Digest Authentication", nonce="MTUwNzUxODY1OTI2ODpkZmU0YzY0ZDJmMDgzMTZmMTdiY2IwZThlZmY1MmYzMg==", uri="/users/int", response="d76c8ef4d8adfc32fefacd91636d2cc0", qop=auth, nc=00000002, cnonce="e587bc6d02d9eead"
 ```
 
 参数介绍：
+
 - username: 用户名（网站定义）
 - password: 密码
-- realm:　服务器返回的realm,一般是域名
+- realm: 服务器返回的realm,一般是域名
 - method: 请求的方法
 - nonce: 服务器发给客户端的随机的字符串
 - nc(nonceCount):请求的次数，用于标记，计数，防止重放攻击
 - cnonce(clinetNonce): 客户端发送给服务器的随机字符串
 - qop: 保护质量参数,一般是auth,或auth-int,这会影响摘要的算法
 - uri: 请求的uri
-- response:　客户端根据算法算出的摘要值
+- response: 客户端根据算法算出的摘要值
 
 digest 算法：
-> A1 = username:realm:password
-A2 = mthod:uri
-HA1 = MD5(A1)
-如果 qop 值为“auth”或未指定，那么 HA2 为
-HA2 = MD5(A2)=MD5(method:uri)
-如果 qop 值为“auth-int”，那么 HA2 为
-HA2 = MD5(A2)=MD5(method:uri:MD5(entityBody))
-如果 qop 值为“auth”或“auth-int”，那么如下计算 response：
-response = MD5(HA1:nonce:nc:cnonce:qop:HA2)
-如果 qop 未指定，那么如下计算 response：
-response = MD5(HA1:nonce:HA2)
 
+> - A1 = username:realm:password
+> - A2 = mthod:uri
+> - HA1 = MD5(A1)
+> - 如果 qop 值为"auth"或未指定，那么 HA2 为<br>
+>   HA2 = MD5(A2)=MD5(method:uri)
+> - 如果 qop 值为"auth-int"，那么 HA2 为<br>
+>   HA2 = MD5(A2)=MD5(method:uri:MD5(entityBody))
+> - 如果 qop 值为"auth"或"auth-int"，那么如下计算 response：<br>
+>   response = MD5(HA1:nonce:nc:cnonce:qop:HA2)
+> - 如果 qop 未指定，那么如下计算 response：<br>
+>   response = MD5(HA1:nonce:HA2)
 
 通过 Spring Security 使用 digest Authentication：
+
 - 代码中配置 digest Authentication
 
   ```kotlin
@@ -227,6 +241,7 @@ response = MD5(HA1:nonce:HA2)
   ```
 
 - xml 配置
+
   ```xml
   <?xml version="1.0" encoding="UTF-8"?>
   <beans:beans xmlns="http://www.springframework.org/schema/security"
@@ -272,6 +287,7 @@ OAuth 有 3 个版本 OAuth 1.0 、OAuth 1.0a、OAuth 2.0。
 TODO : 整理
 
 ## 参考链接
+
 - [Http认证之Basic认证](http://blog.csdn.net/zmx729618/article/details/51371999)
 - [http digest](http://www.jianshu.com/p/18fb07f2f65e)
 - [Spring Security Basic Authentication](http://www.baeldung.com/spring-security-basic-authentication)
