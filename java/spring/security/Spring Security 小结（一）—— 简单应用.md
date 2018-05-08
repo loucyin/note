@@ -1,10 +1,10 @@
-# Spring Security
+# Spring Security 小结（一）---- 简单应用
 
 ## 依赖配置
 
 ```groovy
 compile 'org.springframework.cloud:spring-cloud-starter-security:1.2.2.RELEASE'
-compile "org.springframework.boot:spring-boot-starter-web:$spring_boot_version"
+compile "org.springframework.boot:spring-boot-starter-web:1.5.10.RELEASE"
 ```
 
 ## 两个简单的 restful 接口
@@ -69,7 +69,3 @@ server:
 - 输入 `http://localhost:8190/hello`，会跳转到 `http://localhost:8190/login`
 - 输入用户名 user 密码 user 登录，又会回到 `http://localhost:8190/hello` ，显示 hello user
 - 输入 `http://localhost:8190/admin` 会报 403 错误
-
-## basic 认证以及 digest 认证
-
-查看 [http 几种授权方式](./../web/http 几种授权方式.md)

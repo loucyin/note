@@ -28,6 +28,7 @@ jar {
 ## gradle 不支持 tool.jar
 
 添加依赖
+
 ```groovy
 def jdkHome = System.getenv("JAVA_HOME")
 dependencies {
@@ -107,8 +108,22 @@ systemProp.http.proxyPort=42885
 org.gradle.jvmargs=-Xmx1536m
 ```
 
-设置 gradle http 代理地址为 127.0.0.1:42885
-最大堆内存： 1536M
+设置 gradle http 代理地址为 127.0.0.1:42885 最大堆内存： 1536M
+
+## api implementation
+
+android studio 准备 deprecate compile ,推荐使用 implementation 以及 api 代替。
+
+> 使用 implementation 和 api,具体取决于是否要将依赖项公开给库的使用者。使用 implementation 有助于防止多模块项目的传递依赖混乱。
+
+api 与 compile 类似，使用 api 代替 compile 不会出现任何问题。对于不会被其他 module 依赖的 module ，使用 implementation 代替 compile 也不会出现问题。
+
+举个例子：
+
+- A 模块是 app 模块，需要依赖与 B 模块；
+- B 模块是 lib 模块，需要依赖第三方库 Glide；
+- 如果 B 模块通过 api 导入 Glide 依赖，那么 A 模块不需要添加 Glide 依赖，会从 B 模块中继承过来，可以直接调用 Glide 中的内容；
+- 如果 B 模块通过 implementation 导入 Glide 依赖，那么 A 模块是调用不到 Glide 内容的，如果 A 模块需要使用 Glide ，则需要在 A 模块导入。
 
 ## 参考链接
 
