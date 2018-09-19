@@ -9,6 +9,17 @@ OAuth 有 3 个版本 OAuth 1.0 、OAuth 1.0a、OAuth 2.0。
 
 关于 OAuth 详细信息，找参考链接。
 
+## 依赖
+
+```groovy
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+    implementation "org.springframework.cloud:spring-cloud-starter-security"
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation "org.springframework.cloud:spring-cloud-starter-oauth2"
+}
+```
+
 ## 授权中心
 
 ### 提供 WebSecurity 配置
@@ -59,6 +70,11 @@ class AuthServerConfig : AuthorizationServerConfigurerAdapter() {
 
     @Autowired
     lateinit var authenticationManager: AuthenticationManager
+
+    override fun configure(security: AuthorizationServerSecurityConfigurer) {
+        // 允许客户端通过表单获取授权
+        security.allowFormAuthenticationForClients()
+    }
 
     override fun configure(endpoints: AuthorizationServerEndpointsConfigurer) {
         endpoints.tokenStore(tokenStore())

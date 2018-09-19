@@ -93,7 +93,54 @@ options      | 挂载时使用的参数
 dump         | dump 工具通过它决定何时作备份，0 表示忽略， 1 则进行备份
 pass         | fsck 的检查顺序 0 不被检查 ，1 最高优先级 ，2 需要被检查
 
+## 终端快捷键
+
+快捷键                | 功能                                                 | 适用于
+:----------------- | :------------------------------------------------- | :------------
+Ctrl + Shift + t   | 新建Tab                                              | Ubuntu
+Ctrl + d           | 关闭当前活动Tab（如果命令行有输入了则作用为删除字符）                       |
+Ctrl + Shift + w   | 关闭当前活动Tab（与Firefox不同，在Firefox中是关闭全部；和Alt + F4作用相同） |
+Ctrl + PgDn        | 向后移动活动Tab，可循环（Firefox也可以用）                         | Ubuntu
+Ctrl + PgUp        | 向前移动活动Tab，可循环（Firefox也可以用）                         | Ubuntu
+Ctrl + Shift + 左箭头 | 向前移动活动Tab，可循环（Firefox也可以用）                         | Elementary OS
+Ctrl + Shift + 右箭头 | 向后移动活动Tab，可循环（Firefox也可以用）                         | Elementary OS
+Ctrl + a           | 光标移至行首，这个在输入了一条很长的命令时会用到                           |
+Ctrl + e           | 光标移至行末，这个在输入了一条很长的命令时会用到                           |
+Ctrl + k           | 删除此处至结尾的所有字符                                       |
+Ctrl + u           | 删除此处至开头的所有字符                                       |
+Ctrl + d           | 删除当前位置的一个字符                                        |
+Ctrl + h           | 删除当前位置的前一个字符                                       |
+Ctrl + w           | 删除当前位置的前一个字符串（以空格为界）                               |
+Ctrl + y           | 粘贴'Ctrl + a/e/d/h/w'删除的字符                          |
+Ctrl + &           | 恢复'Ctrl + a/e/d/h/w'删除的字符                          |
+Ctrl + p           | 上一个缓存命令，相当于向上箭头                                    |
+Ctrl + n           | 下一个缓存命令，相当于向下箭头                                    |
+Ctrl + S           | 暂停屏幕输出                                             |
+Ctrl + Q           | 继续屏幕输出                                             |
+Ctrl + c           | 终止进程                                               |
+
+## 网络相关
+
+- 查看 DNS
+
+  ```
+  cat /etc/resolv.conf
+  ```
+
+- 添加路由
+
+  ```
+  route add -net 224.0.0.0 netmask 240.0.0.0 dev eth0
+  ```
+
+- 删除路由
+
+  ```
+  route del -net 224.0.0.0 netmask 240.0.0.0
+  ```
+
 ## 参考链接
 
 - [原 scp 使用加密算法报错 unknown cipher type](https://blog.csdn.net/u010906068/article/details/41211605)
 - [linux之fstab文件详解](https://blog.csdn.net/richerg85/article/details/17917129)
+- [ubuntu16.04 耍帅快捷键](https://blog.csdn.net/xiaoqu001/article/details/78721772)

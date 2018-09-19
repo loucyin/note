@@ -119,6 +119,8 @@
     VPN Client>accountstartupremove BeiJing
     ```
 
+    **注意：虚拟 hub 一定要设置正确**
+
 上面的配置都保存在: `vpn_client.config` 文件中，可以直接修改文件，进行相关参数的修改。
 
 ## VPN 不起作用
@@ -155,7 +157,12 @@
   sudo route del default vpn_vpn
   ```
 
+**路由配置**
+
+由于默认路由使用的是本地网关，所以访问 VPN 其他网段的 ip 时，需要配置路由规则。
+
 ## 参考链接
 
 - [PacketiX VPN Linux系统 安装教程](http://www.softether.cn/jiaocheng/linux.html)
 - [How to create SoftEther connection on Ubuntu?](https://www.rapidvpn.com/setup-vpn-softether-ubuntu)
+- [setting-up-softether-vpn-client](https://askubuntu.com/questions/666484/setting-up-softether-vpn-client)
