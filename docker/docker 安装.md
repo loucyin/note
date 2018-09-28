@@ -50,6 +50,14 @@
   $ sudo docker run hello-world
   ```
 
+## 免 sudo
+
+将当前用户加入到 docker 用户组中：
+
+```
+sudo gpasswd -a ${USER} docker
+```
+
 ## 参考链接
 
 - [Get Docker CE for Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/)
