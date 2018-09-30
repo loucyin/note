@@ -139,6 +139,26 @@ Ctrl + c           | 终止进程                                               
   route del -net 224.0.0.0 netmask 240.0.0.0
   ```
 
+## root 远程登录
+
+- 安装 openssh-server
+
+  ```
+  sudo apt-get install openssh-server
+  ```
+
+- 设置 root 用户密码
+
+  ```
+  sudo passwd -u root
+  ```
+
+- 修改 `/etc/ssh/sshd_config` 中的 `PermitRootLogin` 项为：
+
+  ```
+  PermitRootLogin yes
+  ```
+
 ## 参考链接
 
 - [原 scp 使用加密算法报错 unknown cipher type](https://blog.csdn.net/u010906068/article/details/41211605)
