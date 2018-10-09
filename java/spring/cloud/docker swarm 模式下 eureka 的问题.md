@@ -17,7 +17,7 @@ service A 对外暴露端口，service B 依赖与 service A 的服务，通过 
 进入 service A 通过 ifconfig 查看，service A 存在 4 个网络接口：
 
 ```
-eth0      Link encap:Ethernet  HWaddr 02:42:0A:FF:00:25  
+eth0      Link encap:Ethernet  HWaddr 02:42:0A:FF:00:25
           inet addr:10.255.0.37  Bcast:10.255.255.255  Mask:255.255.0.0
           UP BROADCAST RUNNING MULTICAST  MTU:1450  Metric:1
           RX packets:0 errors:0 dropped:0 overruns:0 frame:0
@@ -25,7 +25,7 @@ eth0      Link encap:Ethernet  HWaddr 02:42:0A:FF:00:25
           collisions:0 txqueuelen:0
           RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
 
-eth1      Link encap:Ethernet  HWaddr 02:42:0A:00:06:09  
+eth1      Link encap:Ethernet  HWaddr 02:42:0A:00:06:09
           inet addr:10.0.6.9  Bcast:10.0.6.255  Mask:255.255.255.0
           UP BROADCAST RUNNING MULTICAST  MTU:1450  Metric:1
           RX packets:30 errors:0 dropped:0 overruns:0 frame:0
@@ -33,7 +33,7 @@ eth1      Link encap:Ethernet  HWaddr 02:42:0A:00:06:09
           collisions:0 txqueuelen:0
           RX bytes:6439 (6.2 KiB)  TX bytes:2316 (2.2 KiB)
 
-eth2      Link encap:Ethernet  HWaddr 02:42:AC:13:00:03  
+eth2      Link encap:Ethernet  HWaddr 02:42:AC:13:00:03
           inet addr:172.19.0.3  Bcast:172.19.255.255  Mask:255.255.0.0
           UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
           RX packets:43 errors:0 dropped:0 overruns:0 frame:0
@@ -41,7 +41,7 @@ eth2      Link encap:Ethernet  HWaddr 02:42:AC:13:00:03
           collisions:0 txqueuelen:0
           RX bytes:5235 (5.1 KiB)  TX bytes:0 (0.0 B)
 
-lo        Link encap:Local Loopback  
+lo        Link encap:Local Loopback
           inet addr:127.0.0.1  Mask:255.0.0.0
           UP LOOPBACK RUNNING  MTU:65536  Metric:1
           RX packets:0 errors:0 dropped:0 overruns:0 frame:0
@@ -80,6 +80,13 @@ eureka:
 **存在的问题**
 
 如果没有 `10.0.` 网段的 ip 地址可选，会注册 `127.0.0.1` 到 eureka 。
+
+
+**注意**
+
+- service A 注册到 eureka 需要一段时间；
+- service A 注册到 eureka 后，被 service B 发现也需要一段时间；
+- 在 service B 发现 service A 之前，service B 是访问不到 service A 的。
 
 ## 参考链接
 
