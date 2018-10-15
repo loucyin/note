@@ -159,6 +159,32 @@ Ctrl + c           | 终止进程                                               
   PermitRootLogin yes
   ```
 
+## 格式化 u 盘
+
+```
+# 查看磁盘分区
+sudo fdisk -l
+# 卸载 u 盘
+sudo umount /dev/sdc
+# 格式化成 Fat
+sudo mkfs.vfat /dev/sdc -I
+```
+
+格式化成 ext4
+
+```
+sudo mkfs.ext4 /dev/sdc
+```
+
+格式化成 ntfs
+
+```
+# 安装 ntfs
+sudo apt-get install ntfsprogs
+# 格式化成 ntfs
+sudo mkfs.ntfs /dev/sdc
+```
+
 ## 参考链接
 
 - [原 scp 使用加密算法报错 unknown cipher type](https://blog.csdn.net/u010906068/article/details/41211605)
