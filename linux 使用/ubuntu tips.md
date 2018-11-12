@@ -185,6 +185,33 @@ sudo apt-get install ntfsprogs
 sudo mkfs.ntfs /dev/sdc
 ```
 
+## 替换软件源
+
+```
+cd /etc/apt
+sudo sed -i "s/security\.ubuntu\.com/mirrors\.aliyun\.com/g" sources.list
+sudo sed -i "s/cn\.archive\.ubuntu\.com/mirrors\.aliyun\.com/g" sources.list
+```
+
+## ssh 免密码登录
+
+```
+# 生成秘钥，一路回车即可
+ssh-keygen -t rsa
+# 把公钥上传到服务器
+ssh-copy-id -i ~/.ssh/id_rsa.pub root@192.168.1.100
+```
+
+## 命令行与界面切换
+
+界面到命令行：
+
+ctrl + shift + F1
+
+命令行到界面：
+
+ctrl + shift + F7
+
 ## 参考链接
 
 - [原 scp 使用加密算法报错 unknown cipher type](https://blog.csdn.net/u010906068/article/details/41211605)
