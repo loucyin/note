@@ -29,6 +29,11 @@ raw > mangle > nat > filter
 - PREROUTING
 - POSTROUTING
 
+数据包的流转：
+
+- 封包进入 -> PREROUTING -> INPUT -> OUTPUT -> POSTROUTING -> 封包传出
+- 封包进入 -> PREROUTING -> FORWARD -> 封包传出
+
 ## 表和链的关系
 
 表由预先定义的链组成。
@@ -49,7 +54,7 @@ security  | `INPUT` `OUTPUT` `FORWARD`
 :------|:-----|
 `-s` `--src` `--source` | 匹配源地址，必须是 `IP` `IP/MASK` 地址前可以加 `!` 取反
 `-d` `--dst` `--destination` | 匹配目标地址
--p | 用于匹配协议 `tcp` `udp` `icmp`
+`-p` | 用于匹配协议 `tcp` `udp` `icmp`
 `-i` `--in-interface` | 用于指定数据流入网卡
 `-o` `--out-interface` | 用于指定数据流出网卡
 
@@ -61,7 +66,7 @@ security  | `INPUT` `OUTPUT` `FORWARD`
 :------|:-----| :-----
 `--dport` `--destination-port`  |指定目标端口 | `--dport 22` 指定目标单个端口<br>`--dport 22-25` 指定连续目标端口
 `--sport` `--source-port`  |指定源端口   |同上
---tcp-flags  | tcp 标志位 （SYN ACK FIN PSH RST URG） |  一般跟两个参数：检查的标志位，必须为 1 的标志位 。`--tcpflags syn,ack,fin,rst syn` 表示检查 4 个标志位，syn 必须为 1 ；可以简写为 `--syn`。
+`--tcp-flags`  | tcp 标志位 （SYN ACK FIN PSH RST URG） |  一般跟两个参数：检查的标志位，必须为 1 的标志位 。`--tcpflags syn,ack,fin,rst syn` 表示检查 4 个标志位，syn 必须为 1 ；可以简写为 `--syn`。
 
 #### `-p udp` 的两种扩展
 
@@ -76,11 +81,12 @@ security  | `INPUT` `OUTPUT` `FORWARD`
 
 用法 | 含义
 :------|:-----
-`-m multiport --destination-port 21,23,25` | 指定多个（最多 15 个）不连续的端口，可用参数： `--source-port `
+`-m multiport --destination-ports 21,23,25` | 指定多个（最多 15 个）不连续的端口，可用参数： `--source-port `
 ` -m limit --limit 3/hour`  |  限制平均流量，可用参数： `/second` `/minute` `/hour` `/day`
 ` -m limit --limit-burst 5` | 限制瞬间传入的峰值
 ` -m mac --mac-source  00:00:00:00:00:01`| 指定网卡硬件地址
 ` -m mark --mark 1 `   |  标记
+` -m addrtype --dst-type LOCAL`  |
 
 ` -m state --state `
 
@@ -170,6 +176,15 @@ iptables -E TEST TEST_1
 
 ```
 iptables -X TEST_1
+```
+
+## 配置路由转发
+
+```
+# 配置端口转发
+iptables -t nat -I PREROUTING -i enx00e04c534458 -p tcp --dport 86 -j DNAT --to-destination 192.168.1.31:86
+# 配置 ip 地址伪装
+iptables -t nat -I POSTROUTING -s 192.168.1.31 -o enx00e04c534458 -j MASQUERADE
 ```
 
 ## 参考链接
