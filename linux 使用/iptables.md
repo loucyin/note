@@ -180,12 +180,26 @@ iptables -X TEST_1
 
 ## 配置路由转发
 
+配置 1 ：
+
 ```
 # 配置端口转发
-iptables -t nat -I PREROUTING -i enx00e04c534458 -p tcp --dport 86 -j DNAT --to-destination 192.168.1.31:86
+iptables -t nat -I PREROUTING -p tcp --dport 9998 -j DNAT --to-destination 172.18.18.17:80
 # 配置 ip 地址伪装
-iptables -t nat -I POSTROUTING -s 192.168.1.31 -o enx00e04c534458 -j MASQUERADE
+iptables -t nat -I POSTROUTING -d 172.18.18.17 -p tcp --dport 80 -j MASQUERADE
 ```
+
+在双网卡的情况下，上面的配置只有内网网卡有效，外网网卡无效。
+
+配置 2：
+
+SNAT 与 MASQUERADE 都是对 ip 地址进行伪装，SNAT  使用指定的 ip 地址进行伪装，MASQUERADE 使用发送网卡的地址进行伪装。
+
+内网 ip : 172.18.18.155
+路由 ip : 172.18.18.17:9998
+
+iptables -t nat -I PREROUTING -p tcp --dport 9998 -j DNAT --to-destination 172.18.18.17:80
+iptables -t nat -I POSTROUTING -d 172.18.18.17 -p tcp --dport 80 -j SNAT --to-source 172.18.18.155
 
 ## 参考链接
 
@@ -194,3 +208,4 @@ iptables -t nat -I POSTROUTING -s 192.168.1.31 -o enx00e04c534458 -j MASQUERADE
 - [iptables命令详解和举例](https://blog.csdn.net/qq_38892883/article/details/79709023)
 - [防火墙之地址转换SNAT DNAT](https://blog.csdn.net/chengxuyuanyonghu/article/details/64441374)
 - [Iptables详解](https://www.cnblogs.com/losbyday/p/5850435.html)
+- [CentOS下iptables设备双网卡的端口转发规则](https://blog.csdn.net/cjy37/article/details/7094848)
