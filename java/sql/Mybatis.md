@@ -50,6 +50,7 @@
 10. dataSource 数据源
 11. databaseIdProvider 数据库厂商标识
 12. mappers 映射器
+13. mapper 标签里面的 resource 使用 `/` 做为分隔符
 
 ### resource 属性
 
