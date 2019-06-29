@@ -37,7 +37,7 @@ keytool -importkeystore -deststorepass changeit -destkeypass changeit -destkeyst
 1. ### 做一根签名的根证书
 
   ```
-  keytool -genkeypair -alias root -keystore root.jks -keyalg RSA -ext BasicConstraints:"critical=ca:true" -ext KeyUsage="keyCertSign"
+  keytool -genkeypair -alias root -keystore root.jks -keyalg RSA -ext BasicConstraints:"critical=ca:true" -ext KeyUsage="keyCertSign"  -validity 36500
   ```
 
 2. ### 导出证书
