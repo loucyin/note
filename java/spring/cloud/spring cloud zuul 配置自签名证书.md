@@ -2,7 +2,15 @@
 
 ## 场景
 
-有一个服务对外提供 https 服务，但是使用的是自签名证书，通过 zuul 进行代理时，会出错。
+有一个服务对外提供 https 服务，但是使用的是自签名证书，通过 zuul 进行代理时，会出错。zuul 版本：
+
+```xml
+<dependency>
+  <groupId>org.springframework.cloud</groupId>
+  <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+  <version>2.1.0.RELEASE</version>
+</dependency>
+```
 
 错误信息：
 
@@ -92,6 +100,29 @@ public final HttpClientBuilder setSSLSocketFactory(
 ### 支持自签名证书的 SSLContext
 
 ```java
+public X509Certificate[] getTrustedX509Certificates(List<String> trustedCertificates) {
+    // 从证书路径中读取证书
+    try {
+        CertificateFactory certificateFactory = CertificateFactory
+                .getInstance("X.509");
+        ArrayList<Certificate> allCerts = new ArrayList<>();
+        for (String trustedCert : trustedCertificates) {
+            try {
+                URL url = ResourceUtils.getURL(trustedCert);
+                Collection<? extends Certificate> certs = certificateFactory
+                        .generateCertificates(url.openStream());
+                allCerts.addAll(certs);
+            } catch (IOException e) {
+                throw new WebServerException(
+                        "Could not load certificate '" + trustedCert + "'", e);
+            }
+        }
+        return (X509Certificate[]) allCerts.toArray(new X509Certificate[0]);
+    } catch (CertificateException e1) {
+        throw new WebServerException("Could not load CertificateFactory X.509",
+                e1);
+    }
+}
 private SSLContext sslContext(X509Certificate[] trustedX509Certificates) throws Exception {
        // 获取自定义的 TrustManager
        KeyStore customTrustedStore = KeyStore.getInstance(KeyStore.getDefaultType());

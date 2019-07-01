@@ -61,7 +61,7 @@ keytool -importkeystore -deststorepass changeit -destkeypass changeit -destkeyst
 5. ### 拿着材料去认证
 
   ```
-  keytool -gencert -alias root -infile tomcat.csr -outfile tomcat.cer -keystore root.jks
+  keytool -gencert -alias root -infile tomcat.csr -outfile tomcat.cer -keystore root.jks -ext SAN=ip:181.181.1.43
   ```
 
 6. ### 导入
@@ -87,6 +87,7 @@ keytool -importkeystore -deststorepass changeit -destkeypass changeit -destkeyst
   ```
   keytool -importcert -alias root -keystore tomcat.jks -file root.cer
   keytool -importcert -alias tomcat -file tomcat.cer -keystore tomcat.jks
+  keytool -list -v -keystore tomcat.jks
   ```
 
 7. ### 客户端安装 root.cer
@@ -120,6 +121,16 @@ keytool -importkeystore -deststorepass changeit -destkeypass changeit -destkeyst
 
   p7b以树状展示证书链(certificate chain)，同时也支持单个证书，不含私钥。
 
+## openssl 导出 key cer
+
+```sh
+# keytool 将 jks 转为 p12
+keytool -importkeystore -srckeystore tomcat.jks -destkeystore tomcat.p12 -deststoretype PKCS12
+# openssl 导出 key cer
+openssl pkcs12 -in tomcat.p12 -nocerts -nodes -out test.key
+openssl pkcs12 -in tomcat.p12 -out test.crt -nodes -nokeys
+```
+
 ## 参考链接
 
 - [keytool](http://docs.oracle.com/javase/8/docs/technotes/tools/windows/keytool.html)
@@ -128,3 +139,4 @@ keytool -importkeystore -deststorepass changeit -destkeypass changeit -destkeyst
 - [密钥对,公钥,证书,私钥,jks,keystore,truststore,cer,pfx名词说明](http://blog.csdn.net/zbuger/article/details/51693101)
 - [转换java keytools的keystore证书到OPENSSL的PEM格式文件](http://www.cnblogs.com/interdrp/p/4880891.html)
 - [java keytool证书工具使用小结](http://www.cnblogs.com/whatlonelytear/p/5913538.html)
+- [add alernative names](https://stackoverflow.com/questions/8744607/how-to-add-subject-alernative-name-to-ssl-certs)
